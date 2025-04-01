@@ -38,7 +38,8 @@ def call_openai(prompt):
 def main():
     # Load questions from the JSON file
     with open("questions.json", "r") as f:
-        questions = json.load(f)
+        json_data = json.load(f)
+        questions = json_data["questions"]  # Extract the questions array
     
     # Get settings from config
     num_trials_per_question = config.NUM_TRIALS

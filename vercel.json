@@ -1,4 +1,9 @@
 {
   "version": 2,
-  "maxLambdaSize": "50mb"
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.12",
+      "memory": 1024
+    }
+  }
 } 

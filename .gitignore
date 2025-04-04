@@ -178,3 +178,4 @@ cython_debug/
 
 # Optional: Ignore output files
 results.csv
+.vercel

@@ -1,24 +1,4 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vercel_app.py",
-      "use": "@vercel/python",
-      "config": {
-        "pythonVersion": "3.9",
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.9"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "vercel_app.py"
-    }
-  ],
-  "env": {
-    "PYTHONPATH": ".",
-    "PYTHONUNBUFFERED": "1"
-  }
+  "maxLambdaSize": "50mb"
 } 

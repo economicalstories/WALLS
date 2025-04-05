@@ -1,6 +1,8 @@
-# Large data files
-results_*.csv
+# Explicitly ignore data directory and large files
+/data
+data/
 *.csv
+results_*.csv
 
 # Python
 __pycache__/
@@ -31,7 +33,16 @@ ENV/
 .idea/
 .vscode/
 
-# Only include the specific JSON file we need
+# Development files
+.env
+.git
+.gitignore
+README.md
+LICENSE
+
+# Keep only what we need
+!api/dashboard.py
+!api/requirements.txt
 !api/data/latest_results.json
 
 # Additional files

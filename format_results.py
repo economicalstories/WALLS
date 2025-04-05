@@ -9,11 +9,15 @@ def select_results_file():
     """
     Show available results files and let user select one.
     """
-    # Get all results CSV files in current directory
-    results_files = glob.glob("results_*.csv")
+    # Get all results CSV files in data directory
+    data_dir = "data"
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    
+    results_files = glob.glob(os.path.join(data_dir, "results_*.csv"))
     
     if not results_files:
-        raise FileNotFoundError("No results_*.csv files found in current directory")
+        raise FileNotFoundError("No results_*.csv files found in data directory")
     
     # Sort by date (assuming filename format)
     results_files.sort(reverse=True)
@@ -69,7 +73,7 @@ def create_summary_by_question(input_filename, questions_data, llm_threshold=4):
         if question_id in questions_lookup:
             q_data = questions_lookup[question_id]
             
-            # Calculate statistics by language - SIMPLIFIED to just count and mean
+            # Calculate statistics by language
             lang_stats_dict = {}
             for lang, lang_group in group.groupby('Language'):
                 if not lang_group.empty:
@@ -100,29 +104,24 @@ def create_summary_by_question(input_filename, questions_data, llm_threshold=4):
                     'prompt_text': q_data['prompt_text']
                 })
     
-    # Save timestamped version in root directory
-    base = os.path.splitext(input_filename)[0]
-    output_filename = f"{base}_by_question.json"
-    with open(output_filename, 'w', encoding='utf-8') as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
-    print(f"\nCreated summary file: {output_filename}")
+    # Save timestamped version in data directory
+    base = os.path.splitext(os.path.basename(input_filename))[0]
+    data_dir = "data"
+    os.makedirs(data_dir, exist_ok=True)
+    output_filename = os.path.join(data_dir, f"{base}_by_question.json")
     
-    # Save a copy in api/data with a fixed name
+    # Save a copy in api/data with a fixed name for the dashboard
     api_data_dir = "api/data"
     os.makedirs(api_data_dir, exist_ok=True)
     latest_filename = os.path.join(api_data_dir, "latest_results.json")
-    with open(latest_filename, 'w', encoding='utf-8') as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
-    print(f"Created fixed location copy: {latest_filename}")
+    
+    # Save both copies
+    for filename in [output_filename, latest_filename]:
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(results, f, indent=2, ensure_ascii=False)
+        print(f"\nCreated summary file: {filename}")
     
     return results, output_filename
-
-def save_results(results, input_filename):
-    """Save results to a fixed location in the repo"""
-    output_filename = "api/data/latest_results.json"
-    os.makedirs("api/data", exist_ok=True)
-    with open(output_filename, 'w', encoding='utf-8') as f:
-        json.dump(results, f, indent=2, ensure_ascii=False)
 
 def main():
     try:
@@ -135,12 +134,11 @@ def main():
         # Create summary
         results, summary_file = create_summary_by_question(input_file, questions_data)
         
-        # Save results
-        save_results(results, input_file)
-        
         print("\nData processing complete!")
         print("\nTo visualize the results:")
-        print("1. The processed data has been saved to:", summary_file)
+        print("1. The processed data has been saved to:")
+        print(f"   - Timestamped version: {summary_file}")
+        print("   - Dashboard version: api/data/latest_results.json")
         print("2. To view the interactive dashboard:")
         print("   a. Run the dashboard locally:")
         print("      python api/dashboard.py")

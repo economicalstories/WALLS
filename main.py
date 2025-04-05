@@ -6,6 +6,7 @@ import pandas as pd
 import config
 from translation import translate_prompt
 import datetime
+import os
 
 # Set up OpenAI API key using the new client method
 client = OpenAI(api_key=config.API_KEY)
@@ -186,6 +187,19 @@ def main():
 
     else:
         print("\nNo valid data to generate summary statistics.")
+
+def save_results(results_data):
+    """Save results to a CSV file with timestamp"""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    data_dir = "data"
+    os.makedirs(data_dir, exist_ok=True)
+    filename = os.path.join(data_dir, f"results_{timestamp}.csv")
+    
+    # Convert results to DataFrame and save
+    df = pd.DataFrame(results_data)
+    df.to_csv(filename, index=False)
+    print(f"\nResults saved to: {filename}")
+    return filename
 
 if __name__ == "__main__":
     main()

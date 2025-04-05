@@ -179,3 +179,15 @@ cython_debug/
 # Optional: Ignore output files
 results.csv
 .vercel
+
+# Vercel specific ignores (these files will be in Git but not deployed to Vercel)
+.vercel
+/data/
+data/*.csv
+data/*.json
+results_*.csv
+results_*.json
+
+# Keep these files in Git and Vercel
+!api/data/latest_results.json
+!api/data/.gitkeep

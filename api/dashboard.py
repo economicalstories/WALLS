@@ -26,7 +26,10 @@ app = dash.Dash(
     serve_locally=True,
     compress=False,
     update_title=None,
-    meta_tags=[{"charset": "utf-8"}]
+    meta_tags=[
+        {"charset": "utf-8"},
+        {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
+    ]
 )
 
 # Load data once at startup
@@ -314,7 +317,7 @@ subtitle_style = {
     'paddingBottom': '20px'
 }
 
-def create_question_view(data):
+def create_question_view(data, default_view=None):
     """Create a question-by-language view with toggleable graph type"""
     if not data:
         return None
@@ -323,18 +326,23 @@ def create_question_view(data):
     dropdown_options = []
     for question in data:
         if question.get('language_stats'):
-            wrapped_title = textwrap.fill(question['title'], width=80)
+            wrapped_title = textwrap.fill(question['title'], width=50 if default_view == 'bar' else 80)
             dropdown_options.append({
                 'label': f"{question['question_id']}: {wrapped_title}",
                 'value': question['question_id']
             })
 
+    # Set default controls based on device type
+    default_controls = ['bar', 'colors', 'mean', 'mode'] if default_view == 'bar' else ['colors', 'mean', 'mode']
+
     return html.Div([
-        html.H3("Individual Question Analysis", style=heading_style),
-        html.P("Analyze how different languages respond to individual questions, with options to view as bars or columns and show statistical markers.",
-               style=subtitle_style),
+        html.H3("Individual Question Analysis", 
+                style=dict(heading_style, **{'fontSize': '20px' if default_view == 'bar' else '24px'})),
+        html.P("Analyze how different languages respond to individual questions.",
+               style=dict(subtitle_style, **{'fontSize': '12px' if default_view == 'bar' else '14px'})),
         html.Div([
-            html.Div("Select Question:", style={'marginBottom': '5px', 'fontWeight': 'bold'}),
+            html.Div("Select Question:", 
+                     style={'marginBottom': '5px', 'fontWeight': 'bold', 'fontSize': '14px' if default_view == 'bar' else '16px'}),
             dcc.Dropdown(
                 id='question-dropdown',
                 options=dropdown_options,
@@ -343,14 +351,14 @@ def create_question_view(data):
                 optionHeight=60,
                 style={'width': '100%'}
             )
-        ], style={'width': '80%', 'margin': '20px auto'}),
+        ], style={'width': '95%' if default_view == 'bar' else '80%', 'margin': '20px auto'}),
         html.Div([
             dcc.Graph(
                 id='question-heatmap',
-                style={'height': '800px'},
-                config={'responsive': True}
+                style={'height': '600px' if default_view == 'bar' else '800px'},
+                config={'responsive': True, 'scrollZoom': True}
             )
-        ], style={'width': '100%', 'minHeight': '800px'}),
+        ], style={'width': '100%', 'minHeight': '600px' if default_view == 'bar' else '800px'}),
         html.Div([
             dcc.Checklist(
                 id='graph-controls',
@@ -360,8 +368,8 @@ def create_question_view(data):
                     {'label': ' Show Mode Line', 'value': 'mode'},
                     {'label': ' Show Colors', 'value': 'colors'}
                 ],
-                value=['colors', 'mean', 'mode'],
-                style={'margin': '10px'}
+                value=default_controls,
+                style={'margin': '10px', 'fontSize': '12px' if default_view == 'bar' else '14px'}
             )
         ], style={
             'width': '100%',
@@ -483,9 +491,17 @@ footer = html.Div([
     ], style={'textAlign': 'center', 'fontSize': '0.8em', 'color': '#666', 'margin': '20px'})
 ])
 
+# Add helper function for device detection
+def is_mobile():
+    """Helper function to check if the viewport is mobile-sized"""
+    return html.Div(id='is-mobile', style={'display': 'none'})
+
+# Update the app layout to handle mobile responsiveness
 app.layout = html.Div([
+    is_mobile(),
     header,
     global_controls,
+    dcc.Store(id='device-type'),
     tabs,
     footer
 ])
@@ -601,6 +617,41 @@ def update_comparison(selected_languages, global_controls):
     summary_fig = create_z_score_summary_graph(data, available_languages)
     return comparison_fig, summary_fig
 
+# Add callback to detect device type
+@app.callback(
+    Output('device-type', 'data'),
+    Input('is-mobile', 'style')
+)
+def update_device_type(style):
+    """Determine if the device is mobile based on window width"""
+    return 'mobile'
+
+# Update tabs callback to handle mobile view
+@app.callback(
+    Output('tabs', 'children'),
+    [Input('device-type', 'data')]
+)
+def update_tabs_for_device(device_type):
+    """Update tabs based on device type"""
+    if device_type == 'mobile':
+        # On mobile, only show Question View with bar graph default
+        return [
+            dcc.Tab(label='Question View', children=[
+                create_question_view(data, default_view='bar')
+            ])
+        ]
+    else:
+        # On desktop, show all views
+        return [
+            dcc.Tab(label='Matrix View', children=[matrix_view]),
+            dcc.Tab(label='Question View', children=[
+                create_question_view(data)
+            ]),
+            dcc.Tab(label='Language Comparison', children=[
+                create_comparison_view(data)
+            ])
+        ]
+
 # Add these functions before the callbacks
 def create_single_question_heatmap(question, all_languages, graph_controls):
     """Create a graph for a single question, with configurable display options"""
@@ -633,9 +684,9 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     mode_value = values[0] if values else None
 
     # Calculate dynamic height based on number of languages and orientation
-    row_height = 30 if is_bar_graph else 15  # Adjust height based on orientation
-    margin_top = 250  # Space for title and header
-    margin_bottom = 80  # Space for bottom axis and labels
+    row_height = 25 if is_bar_graph else 15  # Adjust height based on orientation
+    margin_top = 150  # Reduced space for title and header
+    margin_bottom = 60  # Reduced space for bottom axis and labels
     total_height = margin_top + (len(languages) * row_height) + margin_bottom
 
     # Create the graph
@@ -655,23 +706,18 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
         )
 
     # Create hover template based on orientation
-    if not is_bar_graph:
-        hover_template = (
-            "<b>%{x}</b><br>" +
-            "<b>Response:</b> %{y:.2f}<br>" +
-            "<b>Scale Label:</b> %{customdata}<br>" +
-            "<extra></extra>"
-        )
-        customdata = [scale_labels[int(val) - 1] if 0 < int(val) <= len(scale_labels) else "Unknown" for val in values]
-    else:
-        hover_template = (
-            "<b>%{y}</b><br>" +
-            "<b>Response:</b> %{x:.2f}<br>" +
-            "<b>Scale Label:</b> %{customdata}<br>" +
-            "<extra></extra>"
-        )
-        customdata = [scale_labels[int(val) - 1] if 0 < int(val) <= len(scale_labels) else "Unknown" for val in values]
+    hover_template = (
+        "<b>%{customdata[1]}</b><br>" +
+        "<b>Response:</b> %{customdata[0]:.2f}<br>" +
+        "<b>Scale Label:</b> %{customdata[2]}<br>" +
+        "<extra></extra>"
+    )
 
+    # Prepare customdata with all necessary information
+    customdata = [[val, lang, scale_labels[int(val) - 1] if 0 < int(val) <= len(scale_labels) else "Unknown"] 
+                 for val, lang in zip(values, languages)]
+
+    # Add the main trace
     fig.add_trace(go.Bar(
         x=languages if not is_bar_graph else values,
         y=values if not is_bar_graph else languages,
@@ -693,7 +739,7 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
                 line_color="black",
                 annotation_text=f"Mean: {mean_value:.2f}",
                 annotation_position="right",
-                annotation_font=dict(size=12)
+                annotation_font=dict(size=10)
             )
         if show_mode:
             fig.add_hline(
@@ -702,7 +748,7 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
                 line_color="black",
                 annotation_text=f"Mode: {mode_value:.1f}",
                 annotation_position="left",
-                annotation_font=dict(size=12)
+                annotation_font=dict(size=10)
             )
     else:
         if show_mean:
@@ -712,7 +758,7 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
                 line_color="black",
                 annotation_text=f"Mean: {mean_value:.2f}",
                 annotation_position="top",
-                annotation_font=dict(size=12)
+                annotation_font=dict(size=10)
             )
         if show_mode:
             fig.add_vline(
@@ -721,37 +767,34 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
                 line_color="black",
                 annotation_text=f"Mode: {mode_value:.1f}",
                 annotation_position="bottom",
-                annotation_font=dict(size=12)
+                annotation_font=dict(size=10)
             )
 
-    # Word wrap the title and prompt text
-    wrapped_title = '<br>'.join(textwrap.wrap(question['title'], width=80))
-    wrapped_prompt = '<br>'.join(textwrap.wrap(question['prompt_text'], width=80))
+    # Word wrap the title and prompt text for better mobile display
+    wrapped_title = '<br>'.join(textwrap.wrap(question['title'], width=40))
+    wrapped_prompt = '<br>'.join(textwrap.wrap(question['prompt_text'], width=40))
     
-    # Update layout
+    # Create more concise title for mobile
     title_text = (
         f"<b>{question['question_id']}: {wrapped_title}</b><br>" +
-        f"Category: {question['category']}<br>" +
-        f"Scale: {question['scale_min']} to {question['scale_max']}<br><br>" +
-        f"{wrapped_prompt}"
+        f"Scale: {question['scale_min']} to {question['scale_max']}"
     )
 
     # Set axis configurations based on orientation
     if not is_bar_graph:  # Column graph
         xaxis_config = dict(
             title="",
-            tickfont=dict(size=12),
+            tickfont=dict(size=10),
             tickangle=45,
             automargin=True
         )
         yaxis_config = dict(
             title="Response Value",
-            title_font=dict(size=12),
+            title_font=dict(size=10),
             range=[0, question['scale_max'] + 0.5],
             gridcolor='lightgrey',
             showgrid=True,
-            tickfont=dict(size=11),
-            # Add scale labels to y-axis
+            tickfont=dict(size=10),
             tickmode='array',
             ticktext=scale_labels,
             tickvals=list(range(1, len(scale_labels) + 1))
@@ -759,19 +802,18 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     else:  # Bar graph
         xaxis_config = dict(
             title="Response Value",
-            title_font=dict(size=12),
+            title_font=dict(size=10),
             range=[0, question['scale_max'] + 0.5],
             gridcolor='lightgrey',
             showgrid=True,
-            tickfont=dict(size=11),
-            # Add scale labels to x-axis
+            tickfont=dict(size=10),
             tickmode='array',
             ticktext=scale_labels,
             tickvals=list(range(1, len(scale_labels) + 1))
         )
         yaxis_config = dict(
             title="",
-            tickfont=dict(size=12),
+            tickfont=dict(size=10),
             automargin=True,
             tickmode='array',
             ticktext=languages,
@@ -785,20 +827,22 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
             "xanchor": "center",
             "y": 0.98,
             "yanchor": "top",
-            "font": dict(size=14)
+            "font": dict(size=12)
         },
         height=total_height,
         margin=dict(
             t=margin_top,
-            l=150,
-            r=100,
-            b=margin_bottom if not is_bar_graph else 80
+            l=100,  # Reduced left margin
+            r=50,   # Reduced right margin
+            b=margin_bottom
         ),
         xaxis=xaxis_config,
         yaxis=yaxis_config,
         plot_bgcolor='white',
         bargap=0.2,
-        showlegend=False
+        showlegend=False,
+        uniformtext=dict(mode='hide', minsize=8),  # Hide text that would be too small
+        dragmode='pan'  # Enable panning for better mobile interaction
     )
 
     return fig

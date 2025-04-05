@@ -1,3 +1,6 @@
+# This file is for local development only.
+# For Vercel deployment, see api/requirements.txt
+
 # Data Collection & Processing
 openai>=1.0.0
 python-dotenv==1.0.0

@@ -28,7 +28,9 @@ app = dash.Dash(
     update_title=None,
     meta_tags=[
         {"charset": "utf-8"},
-        {"name": "viewport", "content": "width=device-width, initial-scale=1.0"}
+        {"name": "viewport", "content": "width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"},
+        {"name": "apple-mobile-web-app-capable", "content": "yes"},
+        {"name": "mobile-web-app-capable", "content": "yes"}
     ]
 )
 
@@ -494,14 +496,82 @@ footer = html.Div([
 # Add helper function for device detection
 def is_mobile():
     """Helper function to check if the viewport is mobile-sized"""
-    return html.Div(id='is-mobile', style={'display': 'none'})
+    return html.Div([
+        html.Div(id='viewport-container', 
+                 n_clicks=0,
+                 style={
+                     'width': '100vw',  # Use viewport width
+                     'height': '100vh',  # Use viewport height
+                     'position': 'fixed',
+                     'top': '0',
+                     'left': '0',
+                     'overflow': 'hidden',
+                     'visibility': 'hidden',
+                     'pointer-events': 'none',
+                     'z-index': '-1'
+                 })
+    ])
+
+# Add client-side callback for device detection
+app.clientside_callback(
+    """
+    function(n_clicks) {
+        function checkMobile() {
+            return document.documentElement.clientWidth < 768 ? 'mobile' : 'desktop';
+        }
+        
+        // Initial check
+        let currentType = checkMobile();
+        
+        // Add resize listener if not already added
+        if (!window.mobileViewListener) {
+            window.mobileViewListener = true;
+            window.addEventListener('resize', function() {
+                let newType = checkMobile();
+                if (newType !== currentType) {
+                    currentType = newType;
+                    // Force callback by updating click count
+                    document.getElementById('viewport-container').click();
+                }
+            });
+        }
+        
+        return currentType;
+    }
+    """,
+    Output('device-type', 'data'),
+    Input('viewport-container', 'n_clicks'),
+    prevent_initial_call=False
+)
+
+# Add mobile info message style
+mobile_info_style = {
+    'textAlign': 'center',
+    'padding': '10px',
+    'margin': '10px',
+    'backgroundColor': '#f8f9fa',
+    'border': '1px solid #dee2e6',
+    'borderRadius': '5px',
+    'fontSize': '12px',
+    'color': '#666'
+}
+
+# Create mobile info message
+mobile_info = html.Div([
+    html.P([
+        "You are currently in mobile view. ",
+        "For additional features including the Matrix View and Language Comparison, ",
+        "please visit on a desktop device."
+    ], style=mobile_info_style)
+], id='mobile-info')
 
 # Update the app layout to handle mobile responsiveness
 app.layout = html.Div([
     is_mobile(),
     header,
+    mobile_info,
     global_controls,
-    dcc.Store(id='device-type'),
+    dcc.Store(id='device-type', data='desktop'),
     tabs,
     footer
 ])
@@ -617,18 +687,10 @@ def update_comparison(selected_languages, global_controls):
     summary_fig = create_z_score_summary_graph(data, available_languages)
     return comparison_fig, summary_fig
 
-# Add callback to detect device type
-@app.callback(
-    Output('device-type', 'data'),
-    Input('is-mobile', 'style')
-)
-def update_device_type(style):
-    """Determine if the device is mobile based on window width"""
-    return 'mobile'
-
 # Update tabs callback to handle mobile view
 @app.callback(
-    Output('tabs', 'children'),
+    [Output('tabs', 'children'),
+     Output('mobile-info', 'style')],
     [Input('device-type', 'data')]
 )
 def update_tabs_for_device(device_type):
@@ -639,7 +701,7 @@ def update_tabs_for_device(device_type):
             dcc.Tab(label='Question View', children=[
                 create_question_view(data, default_view='bar')
             ])
-        ]
+        ], mobile_info_style
     else:
         # On desktop, show all views
         return [
@@ -650,7 +712,7 @@ def update_tabs_for_device(device_type):
             dcc.Tab(label='Language Comparison', children=[
                 create_comparison_view(data)
             ])
-        ]
+        ], {'display': 'none'}
 
 # Add these functions before the callbacks
 def create_single_question_heatmap(question, all_languages, graph_controls):
@@ -1076,4 +1138,4 @@ def create_z_score_summary_graph(data, available_languages=None):
 application = app.server
 
 if __name__ == '__main__':
-    application.run(debug=True, host='0.0.0.0', port=8050) 
+    application.run(debug=True, host='0.0.0.0', port=8080) 

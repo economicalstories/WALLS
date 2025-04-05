@@ -3,13 +3,19 @@
   "builds": [
     {
       "src": "api/dashboard.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python@3.1.0",
+      "config": {
+        "runtime": "python3.12",
+        "maxLambdaSize": "15mb",
+        "installCommand": "pip install -r api/requirements.txt"
+      }
     }
   ],
   "routes": [
     {"src": "/(.*)", "dest": "api/dashboard.py"}
   ],
   "env": {
-    "PYTHONPATH": "."
+    "PYTHONPATH": ".",
+    "PYTHONUNBUFFERED": "1"
   }
 } 

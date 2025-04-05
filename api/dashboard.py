@@ -12,8 +12,9 @@ import os
 import glob
 from datetime import datetime
 
-# Initialize Flask
+# Initialize Flask with minimal settings
 server = Flask(__name__)
+server.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # Load data once at startup
 def load_data():
@@ -65,23 +66,17 @@ def load_data():
 
 data = load_data()
 
-# Initialize Dash with the correct URL base pathname
-is_vercel = os.environ.get('VERCEL', False)
-url_base_pathname = '/' if is_vercel else '/dashboard/'
-
+# Initialize Dash with minimal settings
 app = dash.Dash(
     __name__,
     server=server,
-    url_base_pathname=url_base_pathname,
-    assets_folder='assets',
-    serve_locally=True,
-    meta_tags=[
-        {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-    ]
+    url_base_pathname='/',
+    compress=True  # Enable compression
 )
 
-# Add this line to make it work with Vercel
-app.server.wsgi_app = app.server.wsgi_app
+# Enable efficient loading of assets
+app.scripts.config.serve_locally = True
+app.css.config.serve_locally = True
 
 # Add helper functions before the layout code
 def get_all_languages(data):

@@ -256,3 +256,46 @@ SOFTWARE.
 - Questions adapted from the World Values Survey (WVS) Wave 7 (2017-2022) Master Questionnaire, published by the World Values Survey Association (www.worldvaluessurvey.org).
 - Project inspired by Ludwig Wittgenstein's work on language and meaning.
 - Built with OpenAI's GPT models and modern data visualization tools.
+
+# WALLS Dashboard
+
+Interactive dashboard for visualizing and analyzing language survey data.
+
+## Local Development
+
+1. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the development server:
+```bash
+python api/dashboard.py
+```
+
+The dashboard will be available at http://localhost:8050
+
+## Deployment to Vercel
+
+1. Install Vercel CLI:
+```bash
+npm i -g vercel
+```
+
+2. Login to Vercel:
+```bash
+vercel login
+```
+
+3. Deploy:
+```bash
+vercel
+```
+
+The deployment will use the configuration in `vercel.json` to set up the Python serverless functions.

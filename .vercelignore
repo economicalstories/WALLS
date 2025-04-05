@@ -1,50 +1,22 @@
-# Explicitly ignore data directory and large files
-/data
-data/
-*.csv
-results_*.csv
-data/*.csv
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual Environment
+# Development and environment
+.git
+.gitignore
+.env
+.idea/
+.vscode/
 venv/
 ENV/
 
-# IDE
-.idea/
-.vscode/
+# Keep only the api directory
+/*
+!/api
 
-# Development files
-.env
-.git
-.gitignore
-README.md
-LICENSE
-
-# Keep only what we need
-!api/dashboard.py
-!api/requirements.txt
+# Keep data minimal
+/data
+*.csv
 !api/data/latest_results.json
 
-# Additional files
+# Development files
+README.md
+LICENSE
 create_static_dashboard.py 

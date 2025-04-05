@@ -2,20 +2,21 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/dashboard.py",
+      "src": "api/index.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
-        "installCommand": "pip install --no-cache-dir --no-binary :all: -r api/requirements.txt",
-        "debug": true
+        "runtime": "python3.9"
       }
     }
   ],
   "routes": [
-    {"src": "/(.*)", "dest": "api/dashboard.py"}
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.py"
+    }
   ],
   "env": {
-    "PYTHONPATH": ".",
-    "PYTHONUNBUFFERED": "1"
+    "PYTHONPATH": "/var/task/api"
   }
 } 

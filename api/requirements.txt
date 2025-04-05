@@ -1,6 +1,4 @@
 dash==2.14.2
-flask==3.0.0
+flask==2.2.5
 plotly==5.18.0
-numpy==1.26.3
-pandas==2.1.4
---no-binary :all: 
+flask-compress==1.17 

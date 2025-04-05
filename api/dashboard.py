@@ -4,23 +4,35 @@ import dash
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 import plotly.graph_objects as go
-import plotly.express as px
-import numpy as np
-import pandas as pd
 import textwrap
 import os
 import glob
 from datetime import datetime
+import math
 
 # Initialize Flask with minimal settings
 server = Flask(__name__)
-server.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+server.config.update({
+    'SEND_FILE_MAX_AGE_DEFAULT': 0,
+    'JSON_AS_ASCII': False,
+    'JSONIFY_MIMETYPE': 'application/json;charset=utf-8'
+})
+
+# Initialize Dash with minimal settings
+app = dash.Dash(
+    __name__,
+    server=server,
+    url_base_pathname='/',
+    serve_locally=True,
+    compress=False,
+    update_title=None,
+    meta_tags=[{"charset": "utf-8"}]
+)
 
 # Load data once at startup
 def load_data():
     """Find and load the most recent results file"""
-    # First try the fixed location
-    fixed_location = "data/latest_results.json"
+    fixed_location = os.path.join(os.path.dirname(__file__), "data", "latest_results.json")
     if os.path.exists(fixed_location):
         try:
             print(f"Loading from fixed location: {fixed_location}")
@@ -28,51 +40,16 @@ def load_data():
                 return json.load(f)
         except Exception as e:
             print(f"Failed to load from fixed location: {str(e)}")
-    
-    # Fall back to searching for timestamped files
-    patterns = [
-        'data/results_*_by_question.json',  # Look in data directory first
-        'results_*_by_question.json',  # Local development - same directory
-        '../results_*_by_question.json',  # Local development - parent directory
-    ]
-    
-    all_files = []
-    for pattern in patterns:
-        try:
-            all_files.extend(glob.glob(pattern))
-        except Exception as e:
-            print(f"Error searching pattern {pattern}: {str(e)}")
-            continue
-    
-    if not all_files:
-        raise FileNotFoundError("Could not find any results files in any expected location")
-    
-    # Sort files by modification time, most recent first
-    all_files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
-    
-    # Try to load the most recent file
-    for file_path in all_files:
-        try:
-            print(f"Attempting to load: {file_path}")
-            with open(file_path, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            print(f"Successfully loaded: {file_path}")
-            return data
-        except Exception as e:
-            print(f"Failed to load {file_path}: {str(e)}")
-            continue
-    
-    raise FileNotFoundError("Could not load any results files")
+            raise
 
-data = load_data()
+    raise FileNotFoundError("Could not find latest_results.json in the expected location")
 
-# Initialize Dash with minimal settings
-app = dash.Dash(
-    __name__,
-    server=server,
-    url_base_pathname='/',
-    compress=True  # Enable compression
-)
+# Load data
+try:
+    data = load_data()
+except Exception as e:
+    print(f"Error loading data: {str(e)}")
+    data = []  # Provide empty default to prevent complete failure
 
 # Enable efficient loading of assets
 app.scripts.config.serve_locally = True
@@ -89,44 +66,47 @@ def get_all_languages(data):
 def get_filtered_languages(data):
     """Get list of languages after filtering out those with NaN values"""
     valid_languages = {'English'}  # Always include English
-    for lang in get_all_languages(data):
+    all_languages = get_all_languages(data)
+    for lang in all_languages:
         if lang == 'English':
             continue
         # Check if language has any NaN values across all questions
         has_missing_data = False
         for q in data:
-            if lang not in q['language_stats'] or pd.isna(q['language_stats'][lang]['mean']):
+            if lang not in q['language_stats'] or q['language_stats'][lang]['mean'] is None:
                 has_missing_data = True
                 break
         if not has_missing_data:
             valid_languages.add(lang)
-    return sorted(list(valid_languages), reverse=True)
+    return sorted(list(valid_languages))
 
 def update_figure_with_filtered_languages(fig, filtered_languages):
     """Update a figure to show only filtered languages"""
-    heatmap_data = next(trace for trace in fig.data if trace.type == 'heatmap')
+    if not fig.data:
+        return fig
+        
+    heatmap_data = fig.data[0]
+    if not heatmap_data:
+        return fig
     
     # Get current data
-    y_data = np.array(heatmap_data.y)
-    z_data = np.array(heatmap_data.z)
-    text_data = np.array(heatmap_data.text)
-    customdata = np.array(heatmap_data.customdata)
+    y_data = heatmap_data.y
+    z_data = heatmap_data.z
+    text_data = heatmap_data.text
     
-    # Find indices of languages to keep (excluding summary stats rows)
-    valid_indices = [i for i, lang in enumerate(y_data[:-3]) if lang in filtered_languages]
+    # Find indices of languages to keep
+    valid_indices = [i for i, lang in enumerate(y_data) if lang in filtered_languages]
     
     # Filter data
-    filtered_y = np.concatenate([y_data[valid_indices], y_data[-3:]])
-    filtered_z = np.vstack([z_data[valid_indices], z_data[-3:]])
-    filtered_text = np.vstack([text_data[valid_indices], text_data[-3:]])
-    filtered_customdata = np.vstack([customdata[valid_indices], customdata[-3:]])
+    filtered_y = [y_data[i] for i in valid_indices]
+    filtered_z = [z_data[i] for i in valid_indices]
+    filtered_text = [text_data[i] for i in valid_indices]
     
     # Update the heatmap
     fig.update_traces(
         z=filtered_z,
         y=filtered_y,
         text=filtered_text,
-        customdata=filtered_customdata,
         selector=dict(type='heatmap')
     )
     
@@ -134,160 +114,158 @@ def update_figure_with_filtered_languages(fig, filtered_languages):
     fig.update_layout(
         height=max(800, len(filtered_y) * 25 + 100),
         yaxis=dict(
-            tickfont=dict(size=11),
-            tickmode='array',
-            ticktext=filtered_y,
-            tickvals=list(range(len(filtered_y))),
+            tickfont=dict(size=10),
             automargin=True
         )
-    )
-    
-    # Update the separator line position
-    fig.update_shapes(dict(
-        y0=len(filtered_y) - 3.5,
-        y1=len(filtered_y) - 3.5
-    ))
-
-def create_matrix_view(data):
-    """Create a matrix view showing all questions vs languages with summary stats"""
-    # Extract unique questions and languages
-    questions = [q['question_id'] for q in data]
-    languages = get_all_languages(data)
-    
-    # Create matrix data and store scale info
-    scale_info = []  # Store scale info for each question
-    for q in questions:
-        q_data = next((item for item in data if item['question_id'] == q), None)
-        if q_data:
-            scale_info.append((1, q_data['scale_max']))  # Always use 1 as min
-    
-    # Create matrix data
-    matrix_data = []
-    for lang in languages:
-        row = []
-        for q_idx, q in enumerate(questions):
-            q_data = next((item for item in data if item['question_id'] == q), None)
-            if q_data and lang in q_data['language_stats']:
-                row.append(q_data['language_stats'][lang]['mean'])
-            else:
-                row.append(None)
-        matrix_data.append(row)
-    
-    # Convert to numpy array for proper handling of None values
-    matrix_data = np.array(matrix_data, dtype=float)
-    
-    # Calculate summary statistics separately
-    summary_stats = calculate_summary_stats(matrix_data)
-    
-    # Create normalized data using [1-max] -> [0-1] scaling for heatmap only
-    normalized_data = np.zeros_like(matrix_data)
-    for col in range(matrix_data.shape[1]):
-        col_data = matrix_data[:, col]
-        scale_min, scale_max = scale_info[col]
-        normalized_data[:, col] = (col_data - scale_min) / (scale_max - scale_min)
-    
-    # Create the heatmap with separate color arrays for data and stats
-    z_colors = np.vstack([normalized_data, np.full((3, normalized_data.shape[1]), None)])  # None for white background
-    z_values = np.vstack([matrix_data, summary_stats])
-    combined_y = languages + ['Mean', 'Std Dev', 'Mode']
-    
-    # Create the combined heatmap
-    fig = go.Figure(data=go.Heatmap(
-        z=z_colors,  # Use separate array for colors
-        x=questions,
-        y=combined_y,
-        colorscale='RdYlBu',
-        text=np.round(z_values, 2),  # Use actual values for text
-        texttemplate='%{text}',
-        textfont={"size": 11},
-        hoverongaps=False,
-        hovertemplate=(
-            "<b>%{y}</b><br>" +
-            "<b>Question:</b> %{x}<br>" +
-            "<b>Value:</b> %{text:.2f}<br>" +
-            "<b>Details:</b> %{customdata}<br>" +
-            "<extra></extra>"
-        ),
-        customdata=[[next((q['title'] for q in data if q['question_id'] == qid), '') 
-                    for qid in questions] for _ in range(len(combined_y))],
-        colorbar=dict(
-            title=dict(
-                text="Scale",
-                side="right"
-            ),
-            tickmode="array",
-            ticktext=["Min (1)", "Mid", "Max"],
-            tickvals=[0, 0.5, 1],
-            ticks="outside",
-            len=0.9,
-            thickness=20
-        ),
-        showscale=True
-    ))
-    
-    # Update layout
-    fig.update_layout(
-        height=max(800, len(combined_y) * 25 + 100),  # Adjust height for combined view
-        margin=dict(t=80, l=120, r=50, b=50),
-        xaxis=dict(
-            tickangle=45,
-            side='top',
-            ticktext=questions,
-            tickvals=questions,
-            tickfont=dict(size=11)
-        ),
-        yaxis=dict(
-            tickfont=dict(size=11),
-            tickmode='array',
-            ticktext=combined_y,
-            tickvals=list(range(len(combined_y))),
-            automargin=True
-        ),
-        hoverlabel=dict(
-            bgcolor="white",
-            font=dict(size=11, family="Arial")
-        )
-    )
-    
-    # Add a shape to separate the summary stats
-    fig.add_shape(
-        type="line",
-        x0=-0.5,
-        y0=len(languages) - 0.5,
-        x1=len(questions) - 0.5,
-        y1=len(languages) - 0.5,
-        line=dict(color="black", width=2)
     )
     
     return fig
 
+def create_matrix_view(data):
+    """Create a matrix view of questions vs languages"""
+    # First collect all questions and their metadata
+    questions = []
+    question_titles = []
+    question_scale_labels = []
+    
+    for q in data:
+        short_title = textwrap.shorten(q['title'], width=30, placeholder="...")
+        questions.append(f"{q['question_id']}: {short_title}")
+        question_titles.append(q['title'])
+        
+        scale_labels = q['scale_labels']
+        if isinstance(scale_labels, dict):
+            if 'min' in scale_labels and 'max' in scale_labels:
+                question_scale_labels.append((scale_labels['min'], scale_labels['max']))
+            else:
+                min_label = scale_labels.get(str(q['scale_min']), str(q['scale_min']))
+                max_label = scale_labels.get(str(q['scale_max']), str(q['scale_max']))
+                question_scale_labels.append((min_label, max_label))
+        else:
+            question_scale_labels.append((str(q['scale_min']), str(q['scale_max'])))
+
+    # Get all languages and sort them
+    languages = sorted(list(set(
+        lang for q in data 
+        for lang in q['language_stats'].keys()
+        if any(stat['mean'] is not None for stat in [q['language_stats'][lang]])
+    )))
+
+    # Create matrix data for languages
+    matrix_data = []
+    text_data = []
+    customdata = []
+
+    # Create language rows
+    for lang in languages:
+        value_row = []
+        text_row = []
+        customdata_row = []
+        
+        for q in data:
+            stats = q['language_stats'].get(lang, {'mean': None})
+            val = stats['mean']
+            
+            value_row.append(val)
+            text_row.append(f"{val:.2f}" if val is not None else "N/A")
+            customdata_row.append([
+                q['title'],
+                q['scale_min'],
+                q['scale_max'],
+                question_scale_labels[questions.index(f"{q['question_id']}: {textwrap.shorten(q['title'], width=30, placeholder='...')}")][0],
+                question_scale_labels[questions.index(f"{q['question_id']}: {textwrap.shorten(q['title'], width=30, placeholder='...')}")][1]
+            ])
+        
+        matrix_data.append(value_row)
+        text_data.append(text_row)
+        customdata.append(customdata_row)
+
+    # Create the main heatmap figure
+    fig = go.Figure()
+
+    # Add language data heatmap
+    fig.add_trace(go.Heatmap(
+        z=matrix_data,
+        x=questions,
+        y=languages,
+        colorscale='RdBu',
+        showscale=True,
+        text=text_data,
+        texttemplate="%{text}",
+        textfont={"size": 10},
+        hoverongaps=False,
+        customdata=customdata,
+        hovertemplate=(
+            "<b>Language:</b> %{y}<br>" +
+            "<b>Question:</b> %{customdata[0]}<br>" +
+            "<b>Value:</b> %{text}<br>" +
+            "<b>Scale:</b> %{customdata[3]} (%{customdata[1]}) to %{customdata[4]} (%{customdata[2]})<extra></extra>"
+        )
+    ))
+
+    # Update matrix layout
+    fig.update_layout(
+        xaxis_title='',
+        yaxis_title='',
+        xaxis=dict(
+            tickangle=45,
+            tickfont=dict(size=10),
+            side='top',
+            automargin=True
+        ),
+        yaxis=dict(
+            tickfont=dict(size=10),
+            automargin=True
+        ),
+        height=max(800, len(languages) * 25 + 200),
+        margin=dict(t=150, l=150, r=50, b=50),
+        autosize=True
+    )
+
+    return fig
+
 def calculate_summary_stats(matrix_data):
-    """Calculate summary statistics for each column, handling NaN values."""
+    """Calculate summary statistics for each column"""
     summary_stats = []
     
     # Calculate mean for each column
-    means = np.nanmean(matrix_data, axis=0)
+    means = []
+    for col in zip(*matrix_data):
+        valid_values = [x for x in col if x is not None]
+        mean = sum(valid_values) / len(valid_values) if valid_values else None
+        means.append(mean)
     summary_stats.append(means)
     
     # Calculate standard deviation for each column
-    stds = np.nanstd(matrix_data, axis=0)
+    stds = []
+    for col in zip(*matrix_data):
+        valid_values = [x for x in col if x is not None]
+        if valid_values:
+            mean = sum(valid_values) / len(valid_values)
+            variance = sum((x - mean) ** 2 for x in valid_values) / len(valid_values)
+            std = math.sqrt(variance)
+            stds.append(std)
+        else:
+            stds.append(None)
     summary_stats.append(stds)
     
     # Calculate mode for each column
     modes = []
-    for col in range(matrix_data.shape[1]):
-        col_data = matrix_data[:, col]
-        valid_data = col_data[~np.isnan(col_data)]
-        if len(valid_data) > 0:
-            # Round to 1 decimal place for mode calculation
-            rounded_data = np.round(valid_data, 1)
-            mode_result = float(pd.Series(rounded_data).mode().iloc[0])
-            modes.append(mode_result)
+    for col in zip(*matrix_data):
+        valid_values = [x for x in col if x is not None]
+        if valid_values:
+            # Count occurrences of each value
+            value_counts = {}
+            for value in valid_values:
+                value_counts[value] = value_counts.get(value, 0) + 1
+            # Find the most common value
+            mode = max(value_counts.items(), key=lambda x: x[1])[0]
+            modes.append(mode)
         else:
-            modes.append(np.nan)
+            modes.append(None)
     summary_stats.append(modes)
     
-    return np.array(summary_stats)
+    return summary_stats
 
 def get_scale_labels(question):
     """Convert scale labels from any format to a list of labels."""
@@ -315,6 +293,27 @@ def get_scale_labels(question):
             return labels
     return [str(i) for i in range(question['scale_min'], question['scale_max'] + 1)]
 
+# Define consistent styles for headings and subtitles
+heading_style = {
+    'textAlign': 'center',
+    'color': '#2c3e50',
+    'marginBottom': '5px',
+    'fontSize': '24px',
+    'fontWeight': 'bold',
+    'paddingTop': '20px'
+}
+
+subtitle_style = {
+    'textAlign': 'center',
+    'fontSize': '14px',
+    'color': '#666',
+    'marginTop': '5px',
+    'marginBottom': '20px',
+    'maxWidth': '800px',
+    'margin': '0 auto',
+    'paddingBottom': '20px'
+}
+
 def create_question_view(data):
     """Create a question-by-language view with toggleable graph type"""
     if not data:
@@ -324,15 +323,16 @@ def create_question_view(data):
     dropdown_options = []
     for question in data:
         if question.get('language_stats'):
-            # Wrap the title to ~80 characters per line
             wrapped_title = textwrap.fill(question['title'], width=80)
             dropdown_options.append({
                 'label': f"{question['question_id']}: {wrapped_title}",
                 'value': question['question_id']
             })
 
-    # Create the layout with a scrollable dropdown, graph, and view toggles
-    layout = html.Div([
+    return html.Div([
+        html.H3("Individual Question Analysis", style=heading_style),
+        html.P("Analyze how different languages respond to individual questions, with options to view as bars or columns and show statistical markers.",
+               style=subtitle_style),
         html.Div([
             html.Div("Select Question:", style={'marginBottom': '5px', 'fontWeight': 'bold'}),
             dcc.Dropdown(
@@ -340,19 +340,17 @@ def create_question_view(data):
                 options=dropdown_options,
                 value=data[0]['question_id'],
                 clearable=False,
-                optionHeight=60,  # Increase height to accommodate wrapped text
-                style={
-                    'width': '100%',
-                }
+                optionHeight=60,
+                style={'width': '100%'}
             )
         ], style={'width': '80%', 'margin': '20px auto'}),
         html.Div([
             dcc.Graph(
                 id='question-heatmap',
-                style={'height': '800px'},  # Set a fixed initial height
+                style={'height': '800px'},
                 config={'responsive': True}
             )
-        ], style={'width': '100%', 'minHeight': '800px'}),  # Ensure container maintains minimum height
+        ], style={'width': '100%', 'minHeight': '800px'}),
         html.Div([
             dcc.Checklist(
                 id='graph-controls',
@@ -371,17 +369,13 @@ def create_question_view(data):
             'justifyContent': 'center',
             'marginTop': '10px'
         })
-    ], style={'width': '100%', 'height': '100%'})
-
-    return layout
+    ])
 
 def create_comparison_view(data):
     """Create a view comparing selected languages against the overall mean"""
-    # Get all languages - but don't filter yet, as that will be handled by the callback
     all_langs = get_all_languages(data)
     comparison_languages = sorted(all_langs)
     
-    # Default selection (English only)
     default_selection = ['English'] if 'English' in comparison_languages else []
     if not default_selection and comparison_languages:
         default_selection = [comparison_languages[0]]
@@ -396,47 +390,38 @@ def create_comparison_view(data):
     comparison_graph = dcc.Graph(id='comparison-graph', style={'height': '600px'}, config={'responsive': True})
     summary_graph = dcc.Graph(id='z-score-summary-graph', style={'height': '500px'}, config={'responsive': True})
     
-    # Define styles once to avoid repetition and improve readability
-    heading_style = {
-        'textAlign': 'center',
-        'marginBottom': '5px'
-    }
-    
-    subtitle_style = {
-        'textAlign': 'center',
-        'fontSize': '0.9em',
-        'color': '#666',
-        'marginTop': '0px',
-        'marginBottom': '20px'
-    }
-    
     return html.Div([
-        html.Div([html.Label("Select languages to compare against the overall mean:"), language_checklist],
-                 style={'width': '80%', 'margin': '20px auto', 'textAlign': 'center'}),
+        html.H3("Language Comparison Analysis", style=heading_style),
+        html.P("Compare how different languages respond across all questions, highlighting variations from the overall patterns.",
+               style=subtitle_style),
+        html.Div([
+            html.Label("Select languages to compare against the overall mean:"),
+            language_checklist
+        ], style={'width': '80%', 'margin': '20px auto', 'textAlign': 'center'}),
         html.Div([
             html.H4("Language Scores vs Overall Mean", style=heading_style),
             html.P("Shows how each selected language's responses compare to the average response (±2 standard deviations) across all languages for each question.",
-                  style=subtitle_style)
+                   style=subtitle_style)
         ]),
         comparison_graph,
-        html.Hr(),
+        html.Hr(style={'margin': '40px 0'}),
         html.Div([
             html.H4("Language Deviation Summary", style=heading_style),
             html.P("Shows how much each language tends to differ from the average response pattern (lower score = more similar to average, higher score = more different).",
-                  style=subtitle_style)
+                   style=subtitle_style)
         ]),
         summary_graph
     ])
 
-# Create the layout
+# Update header with consistent styling
 header = html.Div([
     html.H1("WALLS: Wittgenstein's Analysis of LLM Language Systems", 
-            style={'textAlign': 'center', 'color': '#2c3e50', 'margin': '20px'}),
+            style=dict(heading_style, **{'fontSize': '32px', 'margin': '20px'})),
     html.P([
         "A project investigating how large language models respond to standardized survey-style prompts in different languages. ",
         "Inspired by Wittgenstein's assertion that 'the limits of my language are the limits of my world,' ",
         "this project uses numeric outputs to compare the 'values' expressed by the LLM when prompted in various languages."
-    ], style={'textAlign': 'center', 'margin': '20px', 'maxWidth': '800px', 'margin': '0 auto'})
+    ], style=subtitle_style)
 ])
 
 global_controls = html.Div([
@@ -455,15 +440,20 @@ global_controls = html.Div([
     'marginBottom': '20px'
 })
 
+# Update matrix view with consistent styling and minimal text
 matrix_view = html.Div([
-    dcc.Graph(id='matrix-graph', figure=create_matrix_view(data)),
+    html.H3("Response Matrix by Language", style=heading_style),
+    html.P("Darker colors indicate stronger agreement or disagreement.",
+           style=subtitle_style),
+    dcc.Graph(id='matrix-graph'),
     html.Div([
         dcc.Checklist(
             id='matrix-controls',
             options=[
-                {'label': ' Show Numbers', 'value': 'show_numbers'}
+                {'label': ' Show Numbers', 'value': 'show_numbers'},
+                {'label': ' Show Colors', 'value': 'show_colors'}
             ],
-            value=['show_numbers'],
+            value=['show_numbers', 'show_colors'],
             style={'margin': '10px'}
         )
     ], style={
@@ -506,12 +496,47 @@ app.layout = html.Div([
      Input('global-controls', 'value')]
 )
 def update_matrix(matrix_controls, global_controls):
+    """Update matrix based on controls"""
+    # Handle None values for controls
+    matrix_controls = matrix_controls if matrix_controls is not None else []
+    global_controls = global_controls if global_controls is not None else []
+    
+    # Create base figure
     fig = create_matrix_view(data)
+    
+    # Get display settings
     show_numbers = 'show_numbers' in matrix_controls
-    fig.update_traces(texttemplate='%{text}' if show_numbers else '', selector=dict(type='heatmap'))
+    show_colors = 'show_colors' in matrix_controls
+    
+    # Update main heatmap (languages)
+    fig.update_traces(
+        texttemplate='%{text}' if show_numbers else '',
+        textfont={"size": 10 if show_numbers else 1},
+        colorscale='RdBu' if show_colors else [[0, 'lightgrey'], [1, 'lightgrey']]
+    )
+    
+    # Filter languages if needed
     if 'show_nan' not in global_controls:
-        filtered_languages = get_filtered_languages(data)
-        update_figure_with_filtered_languages(fig, filtered_languages)
+        languages = get_filtered_languages(data)
+        
+        # Get current data
+        heatmap_data = fig.data[0]
+        mask = [y in languages for y in heatmap_data.y]
+        
+        # Apply filter
+        fig.update_traces(
+            z=[z for i, z in enumerate(heatmap_data.z) if mask[i]],
+            y=[y for i, y in enumerate(heatmap_data.y) if mask[i]],
+            text=[t for i, t in enumerate(heatmap_data.text) if mask[i]],
+            customdata=[c for i, c in enumerate(heatmap_data.customdata) if mask[i]]
+        )
+    
+    # Update matrix height based on visible rows
+    visible_rows = len(fig.data[0].y)
+    fig.update_layout(
+        height=max(800, visible_rows * 25 + 200)
+    )
+    
     return fig
 
 @app.callback(
@@ -604,8 +629,8 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     values = [item[1] for item in language_data]
 
     # Calculate statistics
-    mean_value = np.mean(values)
-    mode_value = float(pd.Series(np.round(values, 1)).mode().iloc[0])
+    mean_value = sum(values) / len(values) if values else None
+    mode_value = values[0] if values else None
 
     # Calculate dynamic height based on number of languages and orientation
     row_height = 30 if is_bar_graph else 15  # Adjust height based on orientation
@@ -779,105 +804,153 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     return fig
 
 def create_comparison_graph(data, selected_languages):
-    """Create a plot comparing selected language scores against the overall mean +/- 2SD using error bars."""
-    questions_data = [q for q in data if q.get('language_stats')]
-    questions_data.sort(key=lambda x: x['question_id'])
-    question_ids = [q['question_id'] for q in questions_data]
-    question_titles = [q['title'] for q in questions_data]
+    """Create a comparison graph showing actual values with mean and error bars"""
+    if not selected_languages:
+        return go.Figure()
+
+    # Define a fixed color sequence
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', 
+              '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+
+    # First, collect all questions and their data
+    questions_data = []
+    question_labels = []
     
-    overall_means = []
-    overall_sds = []
-    language_scores = {lang: [] for lang in selected_languages}
-
-    # Calculate overall stats and gather language scores
-    for q in questions_data:
-        lang_stats = q['language_stats']
-        valid_means = [stats['mean'] for stats in lang_stats.values() if pd.notna(stats['mean'])]
+    for q in data:
+        # Create short question label
+        short_title = textwrap.shorten(q['title'], width=30, placeholder="...")
+        question_label = f"{q['question_id']}: {short_title}"
         
-        if len(valid_means) >= 2:
-            q_mean = np.mean(valid_means)
-            q_std = np.std(valid_means)
-        elif len(valid_means) == 1:
-            q_mean = valid_means[0]
-            q_std = 0
-        else:
-            q_mean = np.nan
-            q_std = np.nan
-
-        overall_means.append(q_mean)
-        overall_sds.append(q_std)
-
-        # Only gather scores if languages are selected
-        if selected_languages:
-            for lang in selected_languages:
-                score = lang_stats.get(lang, {}).get('mean', np.nan)
-                language_scores[lang].append(score)
+        # Calculate statistics for this question
+        valid_stats = {lang: stats['mean'] for lang, stats in q['language_stats'].items() 
+                      if stats['mean'] is not None}
+        
+        if valid_stats:
+            values = list(valid_stats.values())
+            overall_mean = sum(values) / len(values)
+            overall_std = math.sqrt(sum((x - overall_mean) ** 2 for x in values) / len(values))
             
-    overall_means = np.array(overall_means)
-    overall_sds = np.array(overall_sds)
-    error_values = 2 * overall_sds 
+            questions_data.append({
+                'question_id': q['question_id'],
+                'label': question_label,
+                'title': q['title'],
+                'stats': valid_stats,
+                'mean': overall_mean,
+                'std': overall_std,
+                'scale_min': q['scale_min'],
+                'scale_max': q['scale_max']
+            })
+            question_labels.append(question_label)
 
-    fig = go.Figure()
-
-    # Add Overall Mean with Error Bars (always plotted)
-    fig.add_trace(go.Scatter(
-        x=question_ids,
-        y=overall_means,
-        mode='markers', 
-        name='Overall Mean',
-        marker=dict(color='black', size=8, symbol='diamond'),
-        error_y=dict(
-            type='data', 
-            array=error_values,
-            visible=True,
-            thickness=1.5,
-            width=5, 
-            color='grey'
+    # Create traces for selected languages
+    traces = []
+    
+    # First add mean and error bars for each question
+    x_positions = list(range(len(questions_data)))
+    means = [q['mean'] for q in questions_data]
+    errors = [q['std'] * 2 for q in questions_data]  # 2 standard deviations
+    
+    # Add error bars
+    traces.append(go.Scatter(
+        x=x_positions,
+        y=means,
+        mode='markers',
+        name='Mean',
+        marker=dict(
+            color='gray',
+            size=8,
+            symbol='diamond'
         ),
-        customdata=question_titles,
-        hovertemplate='<b>Question:</b> %{x} (%{customdata})<br><b>Overall Mean:</b> %{y:.2f}<br><b>+/- 2SD:</b> %{error_y.array:.2f}<extra></extra>',
-        showlegend=True
+        error_y=dict(
+            type='data',
+            array=errors,
+            visible=True,
+            color='gray',
+            thickness=1,
+            width=5
+        ),
+        hovertemplate=(
+            "<b>Question:</b> %{text}<br>" +
+            "<b>Mean:</b> %{y:.2f}<br>" +
+            "<b>±2 SD:</b> %{error_y.array:.2f}" +
+            "<extra></extra>"
+        ),
+        text=[q['title'] for q in questions_data]
     ))
 
-    # Add language markers only if languages are selected
-    if selected_languages:
-        colors = px.colors.qualitative.Plotly
-        for i, lang in enumerate(selected_languages):
-            lang_scores_np = np.array(language_scores[lang])
-            customdata_list = [[om, osd, qt] for om, osd, qt in zip(overall_means, overall_sds, question_titles)]
-            
-            fig.add_trace(go.Scatter(
-                x=question_ids,
-                y=lang_scores_np,
+    # Then add points for each language
+    for i, lang in enumerate(selected_languages):
+        x_values = []
+        y_values = []
+        hover_texts = []
+        
+        for j, q in enumerate(questions_data):
+            if lang in q['stats']:
+                x_values.append(j)  # Use numeric position for x
+                y_values.append(q['stats'][lang])
+                
+                hover_text = f"Question: {q['title']}<br>"
+                hover_text += f"Language: {lang}<br>"
+                hover_text += f"Value: {q['stats'][lang]:.2f}<br>"
+                hover_text += f"Mean: {q['mean']:.2f}<br>"
+                hover_text += f"±2 SD: {q['std']*2:.2f}"
+                hover_texts.append(hover_text)
+
+        if y_values:  # Only add trace if we have data
+            traces.append(go.Scatter(
+                x=x_values,
+                y=y_values,
                 mode='markers',
                 name=lang,
-                marker=dict(color=colors[i % len(colors)], size=8),
-                customdata=customdata_list, 
-                hovertemplate=(
-                    f'<b>Language:</b> {lang}<br>'
-                    f'<b>Question:</b> %{{x}} (%{{customdata[2]}})<br>'
-                    f'<b>Score:</b> %{{y:.2f}}<br>'
-                    f'<b>Overall Mean:</b> %{{customdata[0]:.2f}}<br>'
-                    f'<b>Overall SD:</b> %{{customdata[1]:.2f}}<extra></extra>'
-                )
+                marker=dict(
+                    color=colors[i % len(colors)],
+                    size=10,
+                    symbol='circle'
+                ),
+                hovertext=hover_texts,
+                hoverinfo='text'
             ))
 
-    # Update layout
-    max_scale_list = [q['scale_max'] for q in questions_data if pd.notna(q.get('scale_max'))]
-    min_scale_list = [q['scale_min'] for q in questions_data if pd.notna(q.get('scale_min'))]
-    max_scale = max(max_scale_list) if max_scale_list else 10
-    min_scale = min(min_scale_list) if min_scale_list else 1
+    # Create the figure
+    fig = go.Figure(data=traces)
     
+    # Get overall min and max scale values
+    min_scale = min(q['scale_min'] for q in questions_data)
+    max_scale = max(q['scale_max'] for q in questions_data)
+    
+    # Update layout
     fig.update_layout(
-        xaxis_title="Question ID",
-        yaxis_title="Response Score",
-        yaxis_range=[min_scale - 1, max_scale + 1],
+        title={
+            'text': 'Language Response Values with Mean ±2SD',
+            'x': 0.5,
+            'xanchor': 'center',
+            'font': {'size': 24}
+        },
+        xaxis_title="Questions",
+        yaxis_title="Response Value",
         hovermode='closest',
-        legend_title_text='Legend',
-        xaxis=dict(tickangle=45),
-        margin=dict(l=60, r=30, t=30, b=100)  # Reduced top margin since title is removed
+        showlegend=True,
+        legend=dict(
+            yanchor="top",
+            y=0.99,
+            xanchor="left",
+            x=0.01
+        ),
+        margin=dict(t=100, b=150),  # Increase bottom margin for labels
+        xaxis=dict(
+            tickmode='array',
+            ticktext=question_labels,
+            tickvals=x_positions,
+            tickangle=45,
+            tickfont=dict(size=10)
+        ),
+        yaxis=dict(
+            range=[min_scale - 0.5, max_scale + 0.5],  # Add some padding
+            gridcolor='lightgray',
+            gridwidth=1
+        )
     )
-
+    
     return fig
 
 def create_z_score_summary_graph(data, available_languages=None):
@@ -891,22 +964,25 @@ def create_z_score_summary_graph(data, available_languages=None):
     # Calculate Z-scores for available languages across all questions
     for q in questions_data:
         lang_stats = q['language_stats']
-        valid_means = [stats['mean'] for lang, stats in lang_stats.items() 
-                      if lang in all_languages and pd.notna(stats['mean'])]
+        # Get valid means for languages that have data
+        valid_means = []
+        for lang in all_languages:
+            if lang in lang_stats and lang_stats[lang].get('mean') is not None:
+                valid_means.append(lang_stats[lang]['mean'])
         
         if len(valid_means) < 2:
             continue  # Need at least 2 points for mean/sd
         
-        q_mean = np.mean(valid_means)
-        q_std = np.std(valid_means)
+        q_mean = sum(valid_means) / len(valid_means)
+        q_std = math.sqrt(sum((x - q_mean) ** 2 for x in valid_means) / len(valid_means))
 
         if q_std == 0:
-            q_std = 1  # Avoid division by zero
+            continue  # Skip questions with no variation
 
         for lang in all_languages:
             if lang in lang_stats:
-                score = lang_stats[lang].get('mean', np.nan)
-                if pd.notna(score):
+                score = lang_stats[lang].get('mean')
+                if score is not None:
                     z_score = (score - q_mean) / q_std
                     language_z_scores[lang].append(z_score)
 
@@ -914,24 +990,32 @@ def create_z_score_summary_graph(data, available_languages=None):
     avg_abs_z_scores = {}
     for lang, z_scores in language_z_scores.items():
         if z_scores:  # Only include languages with at least one valid Z-score
-            avg_abs_z_scores[lang] = np.mean(np.abs(z_scores))
-        else:
-            avg_abs_z_scores[lang] = np.nan
+            avg_abs_z_scores[lang] = sum(abs(z) for z in z_scores) / len(z_scores)
 
     # Sort languages by average absolute Z-score (lowest to highest)
-    sorted_langs = sorted(avg_abs_z_scores.keys(), 
-                         key=lambda l: avg_abs_z_scores[l] if pd.notna(avg_abs_z_scores[l]) else float('inf'))
-    sorted_scores = [avg_abs_z_scores[lang] for lang in sorted_langs]
+    sorted_items = sorted(
+        [(lang, score) for lang, score in avg_abs_z_scores.items() if score is not None],
+        key=lambda x: x[1]
+    )
     
-    # Remove languages with NaN scores from plot data
-    plot_langs = [l for l, s in zip(sorted_langs, sorted_scores) if pd.notna(s)]
-    plot_scores = [s for s in sorted_scores if pd.notna(s)]
+    if not sorted_items:
+        # Return empty figure if no valid data
+        fig = go.Figure()
+        fig.update_layout(
+            xaxis_title="Language",
+            yaxis_title="Average Absolute Z-Score",
+            xaxis=dict(tickangle=45),
+            margin=dict(l=60, r=30, t=30, b=100)
+        )
+        return fig
+        
+    sorted_langs, sorted_scores = zip(*sorted_items)
 
     # Create the bar chart
     fig = go.Figure(data=[go.Bar(
-        x=plot_langs,
-        y=plot_scores,
-        marker_color=px.colors.qualitative.Plotly[0],
+        x=list(sorted_langs),
+        y=list(sorted_scores),
+        marker_color='#1f77b4',  # Standard blue color
         hovertemplate='<b>Language:</b> %{x}<br><b>Avg. Abs. Z-Score:</b> %{y:.3f}<extra></extra>'
     )])
 
@@ -939,15 +1023,13 @@ def create_z_score_summary_graph(data, available_languages=None):
         xaxis_title="Language",
         yaxis_title="Average Absolute Z-Score",
         xaxis=dict(tickangle=45),
-        margin=dict(l=60, r=30, t=30, b=100)  # Reduced top margin since title is removed
+        margin=dict(l=60, r=30, t=30, b=100)
     )
 
     return fig
 
+# This is what Vercel will use
+application = app.server
+
 if __name__ == '__main__':
-    # For local development
-    port = int(os.environ.get('PORT', 8080))
-    app.run(debug=True, host='0.0.0.0', port=port)
-else:
-    # For Vercel
-    application = app.server 
+    application.run(debug=True, host='0.0.0.0', port=8050) 

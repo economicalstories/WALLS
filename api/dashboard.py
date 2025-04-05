@@ -335,7 +335,7 @@ def create_question_view(data, default_view=None):
             })
 
     # Set default controls based on device type
-    default_controls = ['bar', 'colors', 'mean', 'mode'] if default_view == 'bar' else ['colors', 'mean', 'mode']
+    default_controls = ['bar', 'colors'] if default_view == 'bar' else ['colors']
 
     return html.Div([
         html.H3("Individual Question Analysis", 
@@ -352,7 +352,20 @@ def create_question_view(data, default_view=None):
                 clearable=False,
                 optionHeight=60,
                 style={'width': '100%'}
-            )
+            ),
+            # Add question details container
+            html.Div([
+                html.Div(id='question-details', style={
+                    'margin': '20px 0',
+                    'padding': '15px',
+                    'backgroundColor': '#f8f9fa',
+                    'border': '1px solid #dee2e6',
+                    'borderRadius': '5px',
+                    'maxWidth': '800px',
+                    'margin': '20px auto',
+                    'wordWrap': 'break-word'
+                })
+            ])
         ], style={'width': '95%' if default_view == 'bar' else '80%', 'margin': '20px auto'}),
         html.Div([
             dcc.Graph(
@@ -380,6 +393,41 @@ def create_question_view(data, default_view=None):
             'marginTop': '10px'
         })
     ])
+
+# Add callback for question details
+@app.callback(
+    Output('question-details', 'children'),
+    [Input('question-dropdown', 'value')]
+)
+def update_question_details(selected_question_id):
+    """Update the question details when a new question is selected"""
+    if not selected_question_id:
+        return ""
+    
+    question = next((q for q in data if q['question_id'] == selected_question_id), None)
+    if not question:
+        return ""
+    
+    return [
+        html.H4(question['question_id'], style={
+            'fontSize': '16px',
+            'fontWeight': 'bold',
+            'marginBottom': '10px'
+        }),
+        html.P(question['title'], style={
+            'fontSize': '14px',
+            'marginBottom': '10px'
+        }),
+        html.P(question.get('prompt_text', ''), style={
+            'fontSize': '12px',
+            'color': '#666',
+            'marginBottom': '10px'
+        }),
+        html.P(f"Scale: {question['scale_min']} to {question['scale_max']}", style={
+            'fontSize': '12px',
+            'color': '#666'
+        })
+    ]
 
 def create_comparison_view(data):
     """Create a view comparing selected languages against the overall mean"""
@@ -747,8 +795,8 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
 
     # Calculate dynamic height based on number of languages and orientation
     row_height = 25 if is_bar_graph else 15  # Adjust height based on orientation
-    margin_top = 150  # Reduced space for title and header
-    margin_bottom = 60  # Reduced space for bottom axis and labels
+    margin_top = 50  # Reduced space for title since details are in HTML
+    margin_bottom = 60  # Space for bottom axis and labels
     total_height = margin_top + (len(languages) * row_height) + margin_bottom
 
     # Create the graph
@@ -832,16 +880,6 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
                 annotation_font=dict(size=10)
             )
 
-    # Word wrap the title and prompt text for better mobile display
-    wrapped_title = '<br>'.join(textwrap.wrap(question['title'], width=40))
-    wrapped_prompt = '<br>'.join(textwrap.wrap(question['prompt_text'], width=40))
-    
-    # Create more concise title for mobile
-    title_text = (
-        f"<b>{question['question_id']}: {wrapped_title}</b><br>" +
-        f"Scale: {question['scale_min']} to {question['scale_max']}"
-    )
-
     # Set axis configurations based on orientation
     if not is_bar_graph:  # Column graph
         xaxis_config = dict(
@@ -884,27 +922,27 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
 
     fig.update_layout(
         title={
-            "text": title_text,
-            "x": 0.5,
-            "xanchor": "center",
-            "y": 0.98,
-            "yanchor": "top",
-            "font": dict(size=12)
+            'text': f"{question['question_id']}<br><span style='font-size: 12px'>{question['title']}</span>",
+            'x': 0.5,
+            'xanchor': 'center',
+            'y': 0.95,
+            'yanchor': 'top',
+            'font': {'size': 16}
         },
-        height=total_height,
+        height=total_height + 50,  # Maintain reduced height
         margin=dict(
-            t=margin_top,
-            l=100,  # Reduced left margin
-            r=50,   # Reduced right margin
-            b=margin_bottom
+            t=margin_top + 30,  # Slightly increased top margin for title
+            l=100,  # Left margin for labels
+            r=50,   # Right margin
+            b=margin_bottom  # Bottom margin for labels
         ),
         xaxis=xaxis_config,
         yaxis=yaxis_config,
         plot_bgcolor='white',
         bargap=0.2,
         showlegend=False,
-        uniformtext=dict(mode='hide', minsize=8),  # Hide text that would be too small
-        dragmode='pan'  # Enable panning for better mobile interaction
+        uniformtext=dict(mode='hide', minsize=8),
+        dragmode='pan'
     )
 
     return fig

@@ -3,6 +3,7 @@
 data/
 *.csv
 results_*.csv
+data/*.csv
 
 # Python
 __pycache__/

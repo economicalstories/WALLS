@@ -1,187 +1,258 @@
-# WALLS: Wittgenstein’s Analysis of LLM Language Systems
+# WALLS: Wittgenstein's Analysis of LLM Language Systems
 
-WALLS is a project designed to investigate how a large language model (LLM) responds to standardized survey-style prompts in different languages. Inspired by Wittgenstein’s assertion that “the limits of my language are the limits of my world,” this project uses numeric outputs (such as Likert-scale ratings) to compare the “values” expressed by the LLM when prompted in various languages. By systematically simulating survey responses, WALLS explores whether—and how—the translation of questions affects the distribution of responses produced by the AI.
+WALLS is a project designed to investigate how a large language model (LLM) responds to standardized survey-style prompts in different languages. Inspired by Wittgenstein's assertion that "the limits of my language are the limits of my world," this project uses numeric outputs (such as Likert-scale ratings) to compare the "values" expressed by the LLM when prompted in various languages.
 
-The survey questions are drawn from the World Values Survey (WVS) Wave 7 (2017–2022) questionnaire. In particular, WALLS focuses on items from the **Economic Values**, **Social Values & Attitudes**, **Political Culture & Political Regimes**, and **Religious Values** sections. These sections provide a rich basis for investigating how an LLM “values” different aspects of life—from economic policy and social trust to political systems and religious belief—across linguistic contexts.
+## Research Motivation
 
----
+### Language and AI Cognition
+The relationship between language and thought has been a central question in philosophy and cognitive science. Wittgenstein's famous assertion about language limiting our world raises intriguing questions when applied to artificial intelligence:
 
-# AI Values Survey Runner
+1. **Cross-Linguistic Consistency**: 
+   - Do LLMs exhibit consistent "values" across different languages?
+   - How do cultural nuances embedded in different languages affect AI responses?
+   - Can we identify systematic biases in multi-language AI systems?
 
-This repository contains scripts and configuration files that enable you to simulate surveys using an AI model (e.g., OpenAI's GPT series). The project:
-- Translates survey questions from English into multiple target languages.
-- Runs each question multiple times to capture variability in the model’s numeric outputs.
-- Performs automated translation verification (forward translation, back translation, and semantic similarity scoring) to ensure prompt fidelity.
-- Logs detailed trial data and outputs summary statistics for further analysis.
+2. **Translation Effects**:
+   - How does the translation process impact the semantic integrity of prompts?
+   - Do certain concepts or values "get lost in translation"?
+   - Can we measure and quantify translation drift in AI responses?
 
----
+3. **Value Systems and Language**:
+   - How do linguistic structures shape the expression of values?
+   - Are certain value concepts more stable across languages than others?
+   - What role does language play in the formation of AI "belief systems"?
 
-## Motivation and Theoretical Background
+### Methodology
+We use the World Values Survey (WVS) Wave 7 questionnaire as our foundation, focusing on four key domains:
 
-### Language and Cognition
-Wittgenstein famously argued that our language limits our world. WALLS extends this idea into the realm of AI by asking: Does the language in which a prompt is given alter the “values” produced by an LLM? In other words, can the AI’s responses differ meaningfully if a survey question is asked in English versus Spanish, French, or other languages?
+1. **Economic Values**
+   - Income distribution preferences
+   - Views on private vs. public ownership
+   - Attitudes toward competition and work
 
-### Source of Survey Questions: World Values Survey Wave 7
-WALLS draws its survey items from key sections of the WVS Wave 7 questionnaire:
-- **Economic Values:** Questions on income distribution, private versus public ownership, and the perceived benefits of competition and hard work.
-- **Social Values & Attitudes:** Items addressing trust, social norms, and interpersonal relationships.
-- **Political Culture & Political Regimes:** Questions that assess opinions on political systems, the role of leaders, and left–right orientations.
-- **Religious Values:** Questions on the importance of religion in life, religious beliefs, and practices.
+2. **Social Values & Attitudes**
+   - Trust and social capital
+   - Interpersonal relationships
+   - Cultural norms and practices
 
-Using these established questions, the project leverages a well-validated social science instrument to evaluate the impact of language on AI-generated survey responses.
+3. **Political Culture & Regimes**
+   - Democratic values
+   - Authority and leadership
+   - Political ideology and orientation
 
-### Research Questions
-- Does an LLM produce consistent numeric “values” across different languages?
-- How do translation and back-translation processes affect the semantic integrity of survey prompts?
-- What does the variability in responses tell us about the internal representation of values in the LLM?
+4. **Religious Values**
+   - Religious beliefs and practices
+   - Spiritual importance
+   - Moral frameworks
 
----
+This structured approach allows us to:
+- Compare AI responses across consistent value dimensions
+- Identify patterns in cross-linguistic value expression
+- Evaluate the stability of AI "belief systems" across languages
 
-## File Architecture and Key Components
+## Project Components
 
-### 1. `requirements.txt`
-Lists the necessary Python packages:
-- **openai:** For accessing OpenAI’s API.
-- **pandas:** For data handling and statistical analysis.
-- **python-dotenv:** For secure management of API keys.
+The project is now structured into two main components:
 
-### 2. `config.py`
-Contains configuration settings:
-- **API_KEY:** Your OpenAI API key (loaded from a `.env` file).
-- **MODEL_NAME:** The OpenAI model to use (e.g., `"gpt-4"`).
-- **NUM_TRIALS_TEST / NUM_TRIALS_PROD:** Number of trials per question.
-- **API_DELAY:** Delay (in seconds) between API calls.
-- **USE_TRANSLATION:** Enables/disables prompt translation.
-- **LANGUAGES:** A list of target languages. Derived from the WVS-7 dataset, it includes:
-        "Catalan", "English", "Spanish", "French", "Armenian", "Bengali",
-      "Portuguese", "Chinese", "Greek", "Turkish", "Czech", "Arabic",
-      "Amharic", "Oromo", "Tigris", "German", "Cantonese", "Putonghua",
-      "Hindu", "Indonesian", "Persian", "Japanese", "Kazakh", "Russian",
-      "Swahili", "Kirghiz", "Malay", "Dhivehi", "Mongolian", "Burmese",
-      "Dutch", "Hausa", "Igbo", "Yoruba", "Urdu", "Bikol", "Cebuano",
-      "Filipino", "Ikolo", "Tausug", "Waray", "Hiligaynon", "Romanian",
-      "Serbian", "Slovak", "Korean", "Tajik", "Thai", "Ukrainian",
-      "Uzbek", "Vietnamese", "Shona", "Ndebele"
-  
-### 3. `questions.json`
-Stores the survey questions. Each entry includes:
-- **question_id:** A unique identifier (e.g., "Q106").
-- **prompt_text:** The full text of the survey prompt (with instructions and scale details).
+1. **Data Collection & Processing** (`main.py`, `format_results.py`)
+   - Runs survey questions through the LLM in multiple languages
+   - Processes and validates responses
+   - Generates structured JSON data for analysis
 
-### 4. `translation.py`
-Provides functions for translating prompts:
-- **Forward Translation:** Converts the English prompt to a target language.
-- **Back Translation:** Converts the translated prompt back to English.
-- **LLM Verification:** Uses an additional API call to compare the original and back-translated prompts, generating a semantic similarity score.
+2. **Interactive Dashboard** (`api/dashboard.py`)
+   - Visualizes the processed data through an interactive web interface
+   - Provides multiple views for data analysis
+   - Can be run locally or deployed to Vercel
 
-### 5. `main.py`
-The main orchestrator script:
-- **Loads Questions:** Reads `questions.json`.
-- **Handles Translation:** Translates prompts when needed.
-- **Runs Trials:** Calls the OpenAI API for each question and language over multiple trials.
-- **Logs Data:** Saves each trial’s details (language, question ID, trial number, responses, translation data) to a date-stamped CSV file.
-- **Computes Statistics:** Calculates and prints summary statistics (mean, standard deviation, count) for each question and language.
-- **Displays Final Summary:** Outputs a summary table comparing mean responses across languages and questions.
+## File Architecture
 
----
+### Data Collection & Processing
+- `main.py`: Runs the LLM surveys and collects responses
+- `format_results.py`: Processes raw survey data into structured JSON
+- `config.py`: Configuration settings for the LLM
+- `questions.json`: Survey questions and metadata
+- `translation.py`: Handles multi-language translations
+- `requirements.txt`: Python package dependencies
 
-## Setup
+### Visualization & Analysis
+- `api/dashboard.py`: Interactive Dash application for data visualization
+- `vercel.json`: Configuration for Vercel deployment
 
-### Prerequisites
-- Python 3.7 or higher.
-- An active OpenAI API key.
+## Setup and Usage
 
-### Repository Setup
-1. **Clone the repository:**
-   ```bash
-   git clone <your-repo-url>
-   cd <your-repo-directory>
-   ```
-
-2. **Install Dependencies:**
-   Create a `requirements.txt` file with the following content:
-   ```text
-   openai>=1.0.0
-   pandas
-   python-dotenv
-   ```
-   Then run:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Configure API Key:**
-   - Create a `.env` file in the project root:
-     ```dotenv
-     OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-     ```
-   - Add `.env` to your `.gitignore` file to prevent committing sensitive data:
-     ```gitignore
-     .env
-     __pycache__/
-     *.py[cod]
-     *$py.class
-     results_*.csv
-     ```
-
-4. **Configure Script Settings:**
-   - Edit `config.py` to adjust:
-     - `MODEL_NAME` (e.g., `"gpt-4"`).
-     - `NUM_TRIALS_TEST` for testing and `NUM_TRIALS_PROD` for production.
-     - `API_DELAY` and `USE_TRANSLATION`.
-     - `LANGUAGES` as shown above.
-
----
-
-## Running the Script
-
-Execute the main script from your terminal:
+### 1. Data Collection
+Follow the setup instructions for running surveys:
 
 ```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up your OpenAI API key in .env
+echo "OPENAI_API_KEY=your-key-here" > .env
+
+# Run the survey
 python main.py
 ```
 
-### What to Expect:
-- **Console Output:**  
-  Live updates including:
-  - The current language and question being processed.
-  - Details of translation verification (forward, back translation, LLM similarity scores).
-  - Incremental summary statistics for each question.
-- **CSV Output:**  
-  A date-stamped CSV file (e.g., `results_20231028_103000.csv`) will be created with detailed trial data:
-  - **Language, Question_ID, Trial_Number, Response**
-  - **Original_Prompt, Translated_Prompt, Back_Translation, LLM_Verification_Score**
-- **Final Summary Table:**  
-  A printed summary comparing mean responses and standard deviations across languages and questions.
+### 2. Data Processing
+Process the survey results into a format suitable for visualization:
 
----
+```bash
+# Process the most recent results file
+python format_results.py
+```
 
-## Translation Verification Process
+This will:
+- Load the raw survey results
+- Calculate statistics and summaries
+- Generate a JSON file ready for visualization
 
-For non-English languages, the script follows these steps:
-1. **Forward Translation:**  
-   Translate the original English prompt to the target language.
-2. **Back Translation:**  
-   Translate the target language prompt back into English.
-3. **LLM Verification:**  
-   Use a dedicated API call to compare the original and back-translated English texts, producing a semantic similarity score (1–5). Lower scores may indicate translation drift.
-4. **Logging:**  
-   All translation-related data is recorded in the CSV file.
+### 3. Data Visualization
 
----
+#### Local Development
+Run the dashboard locally:
 
-## Theoretical Implications
+```bash
+# Start the dashboard server
+python api/dashboard.py
 
-By drawing questions from the **Economic Values**, **Social Values & Attitudes**, **Political Culture & Political Regimes**, and **Religious Values** sections of the WVS Wave 7 questionnaire, WALLS situates its investigation within a well-validated social science framework. This allows for:
-- **Cross-Linguistic Consistency Analysis:**  
-  Determining if the LLM’s “values” remain stable or shift when survey prompts are delivered in different languages.
-- **Semantic Integrity in Translation:**  
-  Assessing whether translation introduces biases or semantic shifts that affect the model's responses.
-- **Exploration of AI Limitations:**  
-  Understanding the boundaries of an LLM's “world” as defined by the language used, echoing Wittgenstein’s insights about language and thought.
+# Access the dashboard at:
+# http://localhost:8080/dashboard/
+```
 
-This research not only contributes to discussions about AI reliability and cultural bias but also advances our understanding of how language shapes both human and artificial cognition.
+#### Vercel Deployment
+Deploy the dashboard to Vercel for online access:
 
----
+1. Install Vercel CLI:
+   ```bash
+   npm install -g vercel
+   ```
 
-This README.md provides a comprehensive overview of the project's motivation, technical setup, and theoretical underpinnings, ensuring that WALLS is well-positioned for both experimental use and academic inquiry.
+2. Configure Vercel:
+   ```bash
+   # Initialize Vercel in your project
+   vercel
+   ```
+
+3. Set up build settings in Vercel:
+   - Framework Preset: Python
+   - Build Command: `pip install -r requirements.txt`
+   - Output Directory: `api`
+   - Install Command: `pip install -r requirements.txt`
+
+4. Deploy:
+   ```bash
+   vercel --prod
+   ```
+
+## Dashboard Features
+
+The interactive dashboard provides three main views:
+
+1. **Matrix View**
+   - Overview of all questions and languages
+   - Heatmap visualization of responses
+   - Summary statistics
+
+2. **Question View**
+   - Detailed analysis of individual questions
+   - Configurable graph types (bar/column)
+   - Mean and mode indicators
+   - Scale labels and metadata
+
+3. **Language Comparison**
+   - Compare responses across languages
+   - Statistical analysis with error bars
+   - Z-score deviation summary
+
+## Data Files
+
+- **Input**: Survey results CSV files (`results_*.csv`)
+- **Processed**: JSON files with statistics (`results_*_by_question.json`)
+- **Output**: Interactive web dashboard
+
+## Development Notes
+
+### Local Testing
+- The dashboard automatically finds and loads the most recent results file
+- Changes to `format_results.py` will generate new JSON files
+- The dashboard will pick up new data on restart
+
+### Vercel Deployment
+- Ensure your JSON data file is included in the repository
+- The dashboard will serve from the root URL (`/`)
+- Environment variables can be configured in Vercel dashboard
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## Research Applications
+
+The WALLS project has implications for several key areas:
+
+1. **AI Development**
+   - Improving multi-language model consistency
+   - Identifying and addressing cultural biases
+   - Developing more robust translation systems
+
+2. **Social Science Research**
+   - New methodologies for cross-cultural studies
+   - Understanding value expression across languages
+   - Comparative analysis of human and AI value systems
+
+3. **Ethics and AI Safety**
+   - Evaluating AI value alignment across cultures
+   - Understanding linguistic barriers in AI safety
+   - Developing culturally aware AI systems
+
+## Future Directions
+
+1. **Expanded Language Coverage**
+   - Including more languages and dialects
+   - Analyzing regional variations
+   - Studying minority languages
+
+2. **Enhanced Analysis Tools**
+   - Advanced statistical methods
+   - Interactive visualization tools
+   - Comparative analysis frameworks
+
+3. **Integration with Other Studies**
+   - Collaboration with WVS researchers
+   - Cross-validation with human studies
+   - Integration with other AI evaluation frameworks
+
+## License
+
+MIT License
+
+Copyright (c) 2024 [Your Name/Organization]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## Credits
+
+- Questions adapted from the World Values Survey (WVS) Wave 7 (2017-2022) Master Questionnaire, published by the World Values Survey Association (www.worldvaluessurvey.org).
+- Project inspired by Ludwig Wittgenstein's work on language and meaning.
+- Built with OpenAI's GPT models and modern data visualization tools.

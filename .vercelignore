@@ -1,7 +1,11 @@
+# Large data files
+results_*.csv
+*.csv
+
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
 .Python
 env/
 build/
@@ -18,5 +22,17 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-*.csv
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+
+# Only include the specific JSON file we need
+!api/data/latest_results.json
+
+# Additional files
 create_static_dashboard.py 

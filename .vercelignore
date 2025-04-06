@@ -14,6 +14,8 @@ ENV/
 # Keep data minimal
 /data
 *.csv
+api/surveys/*/data/*.csv
+api/surveys/*/data/data_*.csv
 !api/data/latest_results.json
 
 # Development files

@@ -34,27 +34,183 @@ app = dash.Dash(
     ]
 )
 
-# Load data once at startup
-def load_data():
-    """Find and load the most recent results file"""
-    fixed_location = os.path.join(os.path.dirname(__file__), "data", "latest_results.json")
-    if os.path.exists(fixed_location):
+# Add helper functions at the start, before any data loading
+def format_timestamp(timestamp):
+    """Convert timestamp string to friendly date format"""
+    try:
+        # Parse the timestamp format YYYYMMDD_HHMMSS
+        date_obj = datetime.strptime(timestamp, "%Y%m%d_%H%M%S")
+        # Use string formatting that works across platforms
+        day = str(int(date_obj.strftime("%d")))  # Remove leading zero
+        month = date_obj.strftime("%B")
+        year = date_obj.strftime("%Y")
+        return f"{day} {month} {year}"
+    except ValueError:
         try:
-            print(f"Loading from fixed location: {fixed_location}")
-            with open(fixed_location, 'r', encoding='utf-8') as f:
+            # Try just the date part if time part fails
+            date_str = timestamp.split('_')[0]
+            date_obj = datetime.strptime(date_str, "%Y%m%d")
+            day = str(int(date_obj.strftime("%d")))  # Remove leading zero
+            month = date_obj.strftime("%B")
+            year = date_obj.strftime("%Y")
+            return f"{day} {month} {year}"
+        except ValueError:
+            return timestamp
+
+def get_language_summary(result_data):
+    """Get language summary for a result set"""
+    if not result_data:
+        return "No languages"
+    languages = set()
+    for q in result_data:
+        languages.update(q.get('language_stats', {}).keys())
+    if len(languages) == 1:
+        return next(iter(languages))
+    return f"{len(languages)} languages"  # Use full word 'languages'
+
+def format_result_option(format_type, lang_summary, timestamp):
+    """Format result option label based on specified format"""
+    date = format_timestamp(timestamp)
+    
+    if format_type == 1:
+        # Option 1: Compact format - "Hebrew (6 Apr)" or "51 langs (6 Apr)"
+        return f"{lang_summary} ({date})"
+    elif format_type == 2:
+        # Option 2: Minimal format - just show language info, date on hover
+        return lang_summary
+    elif format_type == 3:
+        # Option 3: Date first - "6 Apr: Hebrew" or "6 Apr: 51 langs"
+        return f"{date}: {lang_summary}"
+    elif format_type == 4:
+        # Option 4: Two lines - language on top, date below (using HTML)
+        return html.Div([
+            html.Div(lang_summary, style={'fontWeight': 'bold'}),
+            html.Div(date, style={'fontSize': 'smaller', 'color': '#666'})
+        ])
+    else:
+        # Default format
+        return f"{lang_summary}, {date}"
+
+# Load data once at startup
+def get_available_surveys():
+    """Find all available surveys"""
+    surveys = {}
+    survey_dir = os.path.join(os.path.dirname(__file__), "surveys")
+    for survey in os.listdir(survey_dir):
+        survey_path = os.path.join(survey_dir, survey)
+        if os.path.isdir(survey_path):
+            # Check if this is a valid survey directory (has questions.json)
+            if os.path.exists(os.path.join(survey_path, "questions.json")):
+                surveys[survey] = {
+                    'id': survey,
+                    'path': survey_path,
+                    'results': get_available_results(survey_path)
+                }
+    return surveys
+
+def get_available_results(survey_path):
+    """Find all available result sets for a survey"""
+    results = {}
+    data_dir = os.path.join(survey_path, "data")
+    print(f"Looking for results in: {data_dir}")  # Debug print
+    if os.path.exists(data_dir):
+        # Add special "combined" option first
+        results["combined"] = {
+            'id': 'combined',
+            'path': data_dir,  # Store directory path for combined results
+            'is_combined': True
+        }
+        
+        for file in os.listdir(data_dir):
+            print(f"Found file: {file}")  # Debug print
+            if file.startswith("results_") and file.endswith(".json"):
+                # Extract timestamp from filename
+                timestamp = file[8:-5]  # Remove 'results_' and '.json'
+                print(f"Adding result with timestamp: {timestamp}")  # Debug print
+                results[timestamp] = {
+                    'id': timestamp,
+                    'path': os.path.join(data_dir, file),
+                    'is_combined': False
+                }
+    print(f"Found results: {results}")  # Debug print
+    return results
+
+def load_survey_questions(survey_id):
+    """Load questions for a specific survey"""
+    questions_path = os.path.join(os.path.dirname(__file__), "surveys", survey_id, "questions.json")
+    if os.path.exists(questions_path):
+        with open(questions_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return None
+
+def load_survey_results(survey_id, result_id):
+    """Load specific result set for a survey"""
+    if result_id == "combined":
+        # Load and combine all results
+        combined_data = []
+        data_dir = os.path.join(os.path.dirname(__file__), "surveys", survey_id, "data")
+        
+        if os.path.exists(data_dir):
+            all_results = {}
+            
+            # First, collect all results
+            for file in os.listdir(data_dir):
+                if file.startswith("results_") and file.endswith(".json"):
+                    with open(os.path.join(data_dir, file), 'r', encoding='utf-8') as f:
+                        result_data = json.load(f)
+                        for question in result_data:
+                            qid = question['question_id']
+                            if qid not in all_results:
+                                all_results[qid] = {
+                                    'question': question,
+                                    'language_stats': {}
+                                }
+                            # Merge language stats
+                            for lang, stats in question['language_stats'].items():
+                                if lang not in all_results[qid]['language_stats']:
+                                    all_results[qid]['language_stats'][lang] = stats
+            
+            # Convert back to list format
+            for qid in all_results:
+                question_data = all_results[qid]['question'].copy()
+                question_data['language_stats'] = all_results[qid]['language_stats']
+                combined_data.append(question_data)
+            
+            return combined_data
+    else:
+        # Load single result file as before
+        result_path = os.path.join(os.path.dirname(__file__), "surveys", survey_id, "data", f"results_{result_id}.json")
+        if os.path.exists(result_path):
+            with open(result_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except Exception as e:
-            print(f"Failed to load from fixed location: {str(e)}")
-            raise
+    return None
 
-    raise FileNotFoundError("Could not find latest_results.json in the expected location")
+def load_survey_metadata(survey_id):
+    """Load metadata for a specific survey"""
+    questions_path = os.path.join(os.path.dirname(__file__), "surveys", survey_id, "questions.json")
+    if os.path.exists(questions_path):
+        with open(questions_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            return data.get('survey', {}).get('copyright', ''), data.get('survey', {}).get('source', '')
+    return '', ''
 
-# Load data
-try:
-    data = load_data()
-except Exception as e:
-    print(f"Error loading data: {str(e)}")
-    data = []  # Provide empty default to prevent complete failure
+# Load available surveys at startup
+print("Loading available surveys...")  # Debug print
+available_surveys = get_available_surveys()
+print(f"Found surveys: {available_surveys}")  # Debug print
+
+# Get initial values for dropdowns
+initial_survey = next(iter(available_surveys.keys())) if available_surveys else None
+initial_results = []
+initial_result = None
+if initial_survey:
+    results = available_surveys[initial_survey]['results']
+    initial_results = [{'label': f"Results from {result_id}", 'value': result_id} 
+                      for result_id in results.keys()]
+    initial_result = next(iter(results.keys())) if results else None
+
+# Load initial data
+data = load_survey_results(initial_survey, initial_result) if initial_survey and initial_result else []
 
 # Enable efficient loading of assets
 app.scripts.config.serve_locally = True
@@ -319,7 +475,7 @@ subtitle_style = {
     'paddingBottom': '20px'
 }
 
-def create_question_view(data, default_view=None):
+def create_question_view(data, default_view=None, initial_figure=None):
     """Create a question-by-language view with toggleable graph type"""
     if not data:
         return None
@@ -353,7 +509,6 @@ def create_question_view(data, default_view=None):
                 optionHeight=60,
                 style={'width': '100%'}
             ),
-            # Add question details container
             html.Div([
                 html.Div(id='question-details', style={
                     'margin': '20px 0',
@@ -370,8 +525,26 @@ def create_question_view(data, default_view=None):
         html.Div([
             dcc.Graph(
                 id='question-heatmap',
+                figure=initial_figure if initial_figure is not None else {},
                 style={'height': '600px' if default_view == 'bar' else '800px'},
-                config={'responsive': True, 'scrollZoom': True}
+                config={
+                    'displayModeBar': True,
+                    'displaylogo': False,
+                    'modeBarButtonsToRemove': [
+                        'zoom', 'pan', 'select', 'lasso2d', 'zoomIn', 'zoomOut', 
+                        'autoScale', 'resetScale', 'hoverClosestCartesian',
+                        'hoverCompareCartesian', 'toggleSpikelines'
+                    ],
+                    'toImageButtonOptions': {
+                        'format': 'png',
+                        'filename': 'question_analysis',
+                        'height': 800,
+                        'width': 1200,
+                        'scale': 2
+                    },
+                    'scrollZoom': False,
+                    'doubleClick': False
+                }
             )
         ], style={'width': '100%', 'minHeight': '600px' if default_view == 'bar' else '800px'}),
         html.Div([
@@ -445,8 +618,23 @@ def create_comparison_view(data):
         labelStyle={'display': 'inline-block', 'marginRight': '15px'}
     )
     
-    comparison_graph = dcc.Graph(id='comparison-graph', style={'height': '600px'}, config={'responsive': True})
-    summary_graph = dcc.Graph(id='z-score-summary-graph', style={'height': '500px'}, config={'responsive': True})
+    # Define common graph configuration
+    graph_config = {
+        'displayModeBar': True,
+        'displaylogo': False,
+        'modeBarButtonsToRemove': [
+            'zoom', 'pan', 'select', 'lasso2d', 'zoomIn', 'zoomOut', 
+            'autoScale', 'resetScale', 'hoverClosestCartesian',
+            'hoverCompareCartesian', 'toggleSpikelines'
+        ],
+        'toImageButtonOptions': {
+            'format': 'png',
+            'filename': 'language_comparison',
+            'height': 800,
+            'width': 1200,
+            'scale': 2
+        }
+    }
     
     return html.Div([
         html.H3("Language Comparison Analysis", style=heading_style),
@@ -461,25 +649,50 @@ def create_comparison_view(data):
             html.P("Shows how each selected language's responses compare to the average response (±2 standard deviations) across all languages for each question.",
                    style=subtitle_style)
         ]),
-        comparison_graph,
+        dcc.Graph(
+            id='comparison-graph',
+            style={'height': '600px'},
+            config=graph_config
+        ),
         html.Hr(style={'margin': '40px 0'}),
         html.Div([
             html.H4("Language Deviation Summary", style=heading_style),
             html.P("Shows how much each language tends to differ from the average response pattern (lower score = more similar to average, higher score = more different).",
                    style=subtitle_style)
         ]),
-        summary_graph
+        dcc.Graph(
+            id='z-score-summary-graph',
+            style={'height': '500px'},
+            config=dict(
+                graph_config,
+                toImageButtonOptions={'filename': 'language_deviation'}
+            )
+        )
     ])
 
-# Update header with consistent styling
+# Update header with consistent styling and load button
 header = html.Div([
     html.H1("WALLS: Wittgenstein's Analysis of LLM Language Systems", 
-            style=dict(heading_style, **{'fontSize': '32px', 'margin': '20px'})),
+            style=dict(heading_style, **{
+                'fontSize': '32px',  # Increased from 28px
+                'margin': '30px 10px 20px',  # Adjusted margins
+                'wordWrap': 'break-word',
+                'lineHeight': '1.3',  # Slightly increased
+                'color': '#1a2a3a',  # Darker, richer color
+                'fontWeight': '600'  # Slightly bolder
+            })),
     html.P([
         "A project investigating how large language models respond to standardized survey-style prompts in different languages. ",
         "Inspired by Wittgenstein's assertion that 'the limits of my language are the limits of my world,' ",
         "this project uses numeric outputs to compare the 'values' expressed by the LLM when prompted in various languages."
-    ], style=subtitle_style)
+    ], style=dict(subtitle_style, **{
+        'fontSize': '15px',  # Increased from 14px
+        'padding': '0 20px',  # Increased padding
+        'lineHeight': '1.5',  # Increased line height
+        'color': '#4a5568',  # Warmer gray color
+        'maxWidth': '800px',  # Control line length
+        'margin': '0 auto 30px'  # Added bottom margin
+    }))
 ])
 
 global_controls = html.Div([
@@ -503,7 +716,27 @@ matrix_view = html.Div([
     html.H3("Response Matrix by Language", style=heading_style),
     html.P("Darker colors indicate stronger agreement or disagreement.",
            style=subtitle_style),
-    dcc.Graph(id='matrix-graph'),
+    dcc.Graph(
+        id='matrix-graph',
+        config={
+            'displayModeBar': True,
+            'displaylogo': False,
+            'modeBarButtonsToRemove': [
+                'zoom', 'pan', 'select', 'lasso2d', 'zoomIn', 'zoomOut', 
+                'autoScale', 'resetScale', 'hoverClosestCartesian',
+                'hoverCompareCartesian', 'toggleSpikelines'
+            ],
+            'toImageButtonOptions': {
+                'format': 'png',
+                'filename': 'response_matrix',
+                'height': 800,
+                'width': 1200,
+                'scale': 2
+            },
+            'scrollZoom': False,
+            'doubleClick': False
+        }
+    ),
     html.Div([
         dcc.Checklist(
             id='matrix-controls',
@@ -532,14 +765,7 @@ tabs = dcc.Tabs([
     ])
 ], id='tabs')
 
-footer = html.Div([
-    html.Hr(),
-    html.P([
-        "Questions adapted from the World Values Survey (WVS) Wave 7 (2017-2022) Master Questionnaire, ",
-        "published by the World Values Survey Association (www.worldvaluessurvey.org). ",
-        "Please credit: 'World Values Survey Association. (2017-2022). WVS Wave 7 Master Questionnaire.'"
-    ], style={'textAlign': 'center', 'fontSize': '0.8em', 'color': '#666', 'margin': '20px'})
-])
+footer = html.Div(id='footer')
 
 # Add helper function for device detection
 def is_mobile():
@@ -565,7 +791,16 @@ app.clientside_callback(
     """
     function(n_clicks) {
         function checkMobile() {
-            return document.documentElement.clientWidth < 768 ? 'mobile' : 'desktop';
+            // Check if the device is actually mobile using user agent
+            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
+            // Check viewport width
+            const isNarrowViewport = window.innerWidth < 768;
+            
+            // Consider it mobile view only if BOTH conditions are true:
+            // 1. Either it's a mobile device OR the viewport is narrow
+            // 2. The viewport width is less than 768px
+            return (isMobileDevice || isNarrowViewport) && window.innerWidth < 768 ? 'mobile' : 'desktop';
         }
         
         // Initial check
@@ -601,7 +836,8 @@ mobile_info_style = {
     'border': '1px solid #dee2e6',
     'borderRadius': '5px',
     'fontSize': '12px',
-    'color': '#666'
+    'color': '#666',
+    'display': 'none'  # Hidden by default
 }
 
 # Create mobile info message
@@ -610,19 +846,346 @@ mobile_info = html.Div([
         "You are currently in mobile view. ",
         "For additional features including the Matrix View and Language Comparison, ",
         "please visit on a desktop device."
-    ], style=mobile_info_style)
-], id='mobile-info')
+    ])
+], id='mobile-info', style=mobile_info_style)
 
-# Update the app layout to handle mobile responsiveness
-app.layout = html.Div([
-    is_mobile(),
-    header,
-    mobile_info,
-    global_controls,
-    dcc.Store(id='device-type', data='desktop'),
-    tabs,
-    footer
-])
+# Add callback to control mobile info visibility
+@app.callback(
+    Output('mobile-info', 'style'),
+    [Input('device-type', 'data')]
+)
+def update_mobile_info_visibility(device_type):
+    """Update mobile info message visibility based on device type"""
+    style = dict(mobile_info_style)
+    style['display'] = 'block' if device_type == 'mobile' else 'none'
+    return style
+
+def create_app_layout():
+    """Create the main app layout"""
+    return html.Div([
+        is_mobile(),
+        header,
+        mobile_info,
+        # Survey Selection Interface
+        html.Div([
+            # Survey Selection
+            html.Div([
+                html.Label("Select Survey:", 
+                          style={
+                              'display': 'block',
+                              'marginBottom': '10px',
+                              'fontWeight': '600',
+                              'color': '#1a2a3a',
+                              'fontSize': '15px'
+                          }),
+                dcc.Dropdown(
+                    id='survey-dropdown',
+                    options=[{'label': survey_id.upper(), 'value': survey_id} 
+                            for survey_id in available_surveys.keys()],
+                    value=initial_survey,
+                    clearable=False,
+                    style={
+                        'width': '100%',
+                        'marginBottom': '25px',
+                        'backgroundColor': 'white',
+                        'fontSize': '14px'
+                    }
+                ),
+            ], style={'width': '100%'}),
+            
+            # Result Set Selection
+            html.Div([
+                html.Label("Select Result Set:", 
+                          style={
+                              'display': 'block',
+                              'marginBottom': '10px',
+                              'fontWeight': '600',
+                              'color': '#1a2a3a',
+                              'fontSize': '15px'
+                          }),
+                dcc.Dropdown(
+                    id='result-dropdown',
+                    options=initial_results,
+                    value=initial_result,
+                    clearable=False,
+                    style={
+                        'width': '100%',
+                        'marginBottom': '25px',
+                        'backgroundColor': 'white',
+                        'fontSize': '14px'
+                    }
+                ),
+            ], style={'width': '100%'}),
+            
+            # Load Button
+            html.Div([
+                html.Button(
+                    'Load Survey', 
+                    id='load-survey-button',
+                    n_clicks=0,
+                    style={
+                        'width': '100%',
+                        'padding': '12px 20px',
+                        'backgroundColor': '#4CAF50',
+                        'color': 'white',
+                        'border': 'none',
+                        'borderRadius': '6px',
+                        'cursor': 'pointer',
+                        'fontSize': '16px',
+                        'fontWeight': '600',
+                        'boxShadow': '0 2px 4px rgba(0,0,0,0.1)',
+                        'transition': 'all 0.3s ease',
+                        'opacity': '0.6',  # Initially dimmed
+                        'letterSpacing': '0.5px'
+                    }
+                )
+            ], style={'width': '100%', 'marginBottom': '25px'})
+        ], style={
+            'width': '100%',
+            'maxWidth': '800px',
+            'margin': '0 auto',
+            'marginTop': '25px',
+            'marginBottom': '35px'
+        }),
+        global_controls,
+        dcc.Store(id='device-type', data='desktop'),
+        dcc.Store(id='data-loaded', data=False),
+        dcc.Store(id='initial-load', data=True),
+        dcc.Store(id='current-survey', data=initial_survey),
+        dcc.Store(id='current-result', data=initial_result),
+        html.Div(id='content-container'),
+        footer
+    ])
+
+app.layout = create_app_layout()
+
+# Update the load_survey_data callback to update current selections
+@app.callback(
+    [Output('content-container', 'children'),
+     Output('data-loaded', 'data'),
+     Output('initial-load', 'data'),
+     Output('footer', 'children'),
+     Output('current-survey', 'data'),
+     Output('current-result', 'data')],
+    [Input('load-survey-button', 'n_clicks'),
+     Input('initial-load', 'data'),
+     Input('device-type', 'data')],
+    [State('survey-dropdown', 'value'),
+     State('result-dropdown', 'value')]
+)
+def load_survey_data(n_clicks, is_initial, device_type, selected_survey, selected_result):
+    """Load survey data when button is clicked or on initial load"""
+    if not is_initial and n_clicks == 0:
+        return None, False, False, None, None, None
+        
+    if not selected_survey or not selected_result:
+        return (
+            html.Div("Please select both a survey and result set.", 
+                    style={'textAlign': 'center', 'margin': '20px'}),
+            False, False, None, None, None
+        )
+    
+    # Load the data
+    global data
+    data = load_survey_results(selected_survey, selected_result)
+    
+    if not data:
+        return (
+            html.Div("Error loading survey data.", 
+                    style={'textAlign': 'center', 'margin': '20px'}),
+            False, False, None, None, None
+        )
+    
+    # Load survey metadata for footer
+    copyright_text, source_text = load_survey_metadata(selected_survey)
+    footer_content = html.P([
+        f"{copyright_text}",
+        html.Br(),
+        "Method and source code for WALLS: Wittgenstein's Analysis of LLM Language Systems available at ",
+        html.A("GitHub", href="https://github.com/economicalstories/WALLS", target="_blank")
+    ], style={'textAlign': 'center', 'fontSize': '0.8em', 'color': '#666', 'margin': '20px'})
+    
+    # Create initial figure for question view
+    if data and len(data) > 0:
+        initial_question = data[0]
+        languages = get_filtered_languages(data)
+        initial_figure = create_single_question_heatmap(
+            initial_question,
+            languages,
+            ['bar', 'colors'] if device_type == 'mobile' else ['colors']
+        )
+    else:
+        initial_figure = go.Figure()
+
+    # Create appropriate content based on device type
+    if device_type == 'mobile':
+        content = html.Div([
+            html.Div([
+                html.H3("Individual Question Analysis", style=heading_style),
+                html.P("Analyze how different languages respond to individual questions.",
+                       style=subtitle_style),
+                html.Div([
+                    html.Label("Select Question:", 
+                             style={'marginBottom': '5px', 'fontWeight': 'bold', 'fontSize': '14px'}),
+                    dcc.Dropdown(
+                        id='question-dropdown',
+                        options=[{
+                            'label': f"{q['question_id']}: {textwrap.fill(q['title'], width=50)}",
+                            'value': q['question_id']
+                        } for q in data if q.get('language_stats')],
+                        value=data[0]['question_id'] if data else None,
+                        clearable=False,
+                        optionHeight=60,
+                        style={'width': '100%'}
+                    ),
+                    html.Div(id='question-details', style={
+                        'margin': '20px 0',
+                        'padding': '15px',
+                        'backgroundColor': '#f8f9fa',
+                        'border': '1px solid #dee2e6',
+                        'borderRadius': '5px'
+                    })
+                ], style={'width': '95%', 'margin': '20px auto'}),
+                dcc.Graph(
+                    id='question-heatmap',
+                    figure=initial_figure,
+                    style={'height': '600px'},
+                    config={
+                        'displayModeBar': True,
+                        'displaylogo': False,
+                        'modeBarButtonsToRemove': [
+                            'zoom', 'pan', 'select', 'lasso2d', 'zoomIn', 'zoomOut', 
+                            'autoScale', 'resetScale', 'hoverClosestCartesian',
+                            'hoverCompareCartesian', 'toggleSpikelines'
+                        ],
+                        'toImageButtonOptions': {
+                            'format': 'png',
+                            'filename': 'question_analysis',
+                            'height': 800,
+                            'width': 1200,
+                            'scale': 2
+                        },
+                        'scrollZoom': False,
+                        'doubleClick': False
+                    }
+                ),
+                html.Div([
+                    dcc.Checklist(
+                        id='graph-controls',
+                        options=[
+                            {'label': ' Show as Bar Graph', 'value': 'bar'},
+                            {'label': ' Show Mean Line', 'value': 'mean'},
+                            {'label': ' Show Mode Line', 'value': 'mode'},
+                            {'label': ' Show Colors', 'value': 'colors'}
+                        ],
+                        value=['bar', 'colors'],
+                        style={'margin': '10px', 'fontSize': '12px'}
+                    )
+                ], style={
+                    'width': '100%',
+                    'display': 'flex',
+                    'justifyContent': 'center',
+                    'marginTop': '10px'
+                })
+            ])
+        ])
+    else:
+        content = dcc.Tabs([
+            dcc.Tab(label='Matrix View', children=[matrix_view]),
+            dcc.Tab(label='Question View', children=[
+                create_question_view(data, initial_figure=initial_figure)
+            ]),
+            dcc.Tab(label='Language Comparison', children=[
+                create_comparison_view(data)
+            ])
+        ])
+    
+    return content, True, False, footer_content, selected_survey, selected_result
+
+# Add callback to update result options with formatted descriptions
+@app.callback(
+    [Output('result-dropdown', 'options'),
+     Output('result-dropdown', 'value')],
+    [Input('survey-dropdown', 'value'),
+     Input('current-survey', 'data'),
+     Input('current-result', 'data')]
+)
+def update_result_options(selected_survey, current_survey, current_result):
+    """Update available result sets when survey is changed"""
+    if not selected_survey or selected_survey not in available_surveys:
+        return [], None
+        
+    results = available_surveys[selected_survey]['results']
+    # Sort timestamps but put "combined" first
+    sorted_timestamps = ["combined"] + sorted([k for k in results.keys() if k != "combined"], reverse=True)
+    
+    # Create formatted options
+    options = []
+    for timestamp in sorted_timestamps:
+        result_data = load_survey_results(selected_survey, timestamp)
+        lang_summary = get_language_summary(result_data)
+        
+        if timestamp == "combined":
+            label = f"All Results Combined ({lang_summary})"
+        else:
+            friendly_date = format_timestamp(timestamp)
+            label = f"{lang_summary}, {friendly_date}"
+            
+        options.append({'label': label, 'value': timestamp})
+    
+    if selected_survey == current_survey:
+        selected_result = current_result
+    else:
+        selected_result = sorted_timestamps[0] if sorted_timestamps else None
+    
+    return options, selected_result
+
+# Add callback to enable/disable Load Survey button
+@app.callback(
+    [Output('load-survey-button', 'disabled'),
+     Output('load-survey-button', 'style')],
+    [Input('survey-dropdown', 'value'),
+     Input('result-dropdown', 'value'),
+     Input('current-survey', 'data'),
+     Input('current-result', 'data')]
+)
+def update_load_button_state(selected_survey, selected_result, current_survey, current_result):
+    """Enable/disable Load Survey button based on selection changes"""
+    base_style = {
+        'width': '100%',
+        'padding': '12px 20px',
+        'backgroundColor': '#4CAF50',
+        'color': 'white',
+        'border': 'none',
+        'borderRadius': '6px',
+        'cursor': 'pointer',
+        'fontSize': '16px',
+        'fontWeight': '600',
+        'boxShadow': '0 2px 4px rgba(0,0,0,0.1)',
+        'transition': 'all 0.3s ease',
+        'opacity': '0.6',  # Initially dimmed
+        'letterSpacing': '0.5px',
+        'hover': {
+            'backgroundColor': '#45a049'
+        }
+    }
+    
+    # Check if selection has changed
+    selection_changed = (
+        selected_survey != current_survey or 
+        selected_result != current_result
+    )
+    
+    if selection_changed:
+        # Enable button
+        base_style['opacity'] = '1'
+        base_style['cursor'] = 'pointer'
+        return False, base_style
+    else:
+        # Disable button
+        base_style['opacity'] = '0.6'
+        base_style['cursor'] = 'not-allowed'
+        return True, base_style
 
 @app.callback(
     Output('matrix-graph', 'figure'),
@@ -677,25 +1240,54 @@ def update_matrix(matrix_controls, global_controls):
     Output('question-heatmap', 'figure'),
     [Input('question-dropdown', 'value'),
      Input('graph-controls', 'value'),
-     Input('global-controls', 'value'),
-     Input('tabs', 'value')]
+     Input('device-type', 'data')]
 )
-def update_question_heatmap(selected_question_id, graph_controls, global_controls, active_tab):
-    if not selected_question_id:
-        selected_question_id = data[0]['question_id']
+def update_question_heatmap(selected_question, graph_controls, device_type):
+    """Update the question heatmap based on selected question and graph controls"""
+    if not selected_question or not data:
+        return go.Figure()
     
-    question = next((q for q in data if q['question_id'] == selected_question_id), None)
+    # Find the selected question data
+    question = next((q for q in data if q['question_id'] == selected_question), None)
     if not question:
-        return {}
+        return go.Figure()
     
-    languages = get_all_languages(data) if 'show_nan' in global_controls else get_filtered_languages(data)
+    # Get available languages
+    languages = get_filtered_languages(data)
+    
+    # Ensure graph_controls is a list
+    graph_controls = graph_controls or []
+    
+    # For mobile view, ensure we have proper defaults
+    if device_type == 'mobile':
+        # If no controls are selected, default to bar and colors
+        if not graph_controls:
+            graph_controls = ['bar', 'colors']
+        # If colors is not selected, add it
+        if 'colors' not in graph_controls:
+            graph_controls.append('colors')
+    
+    # Create updated figure with current controls
     fig = create_single_question_heatmap(question, languages, graph_controls)
     
-    fig.update_layout(
-        autosize=True,
-        height=800,
-        transition_duration=500
-    )
+    # For mobile view, adjust the layout
+    if device_type == 'mobile':
+        fig.update_layout(
+            height=500,  # Reduced height for mobile
+            margin=dict(
+                t=80,  # Reduced top margin
+                l=120 if 'bar' in graph_controls else 50,  # Adjust left margin based on graph type
+                r=20,
+                b=50,
+                pad=2
+            ),
+            title={
+                'font': {'size': 14}  # Smaller title font
+            }
+        )
+        # Adjust font sizes for mobile
+        fig.update_xaxes(tickfont=dict(size=9))
+        fig.update_yaxes(tickfont=dict(size=9))
     
     return fig
 
@@ -731,36 +1323,24 @@ def update_comparison(selected_languages, global_controls):
     
     valid_selected = [lang for lang in (selected_languages or []) if lang in available_languages]
     
+    # Create the comparison graph
     comparison_fig = create_comparison_graph(data, valid_selected)
+    
+    # Create and configure the z-score summary graph
     summary_fig = create_z_score_summary_graph(data, available_languages)
+    
+    # Add config for both graphs to enable PNG downloads
+    for fig in [comparison_fig, summary_fig]:
+        fig.update_layout(
+            dragmode=False,
+            modebar=dict(
+                remove=['zoom', 'pan', 'select', 'lasso2d', 'zoomIn', 'zoomOut', 
+                       'autoScale', 'resetScale', 'hoverClosestCartesian',
+                       'hoverCompareCartesian', 'toggleSpikelines']
+            )
+        )
+    
     return comparison_fig, summary_fig
-
-# Update tabs callback to handle mobile view
-@app.callback(
-    [Output('tabs', 'children'),
-     Output('mobile-info', 'style')],
-    [Input('device-type', 'data')]
-)
-def update_tabs_for_device(device_type):
-    """Update tabs based on device type"""
-    if device_type == 'mobile':
-        # On mobile, only show Question View with bar graph default
-        return [
-            dcc.Tab(label='Question View', children=[
-                create_question_view(data, default_view='bar')
-            ])
-        ], mobile_info_style
-    else:
-        # On desktop, show all views
-        return [
-            dcc.Tab(label='Matrix View', children=[matrix_view]),
-            dcc.Tab(label='Question View', children=[
-                create_question_view(data)
-            ]),
-            dcc.Tab(label='Language Comparison', children=[
-                create_comparison_view(data)
-            ])
-        ], {'display': 'none'}
 
 # Add these functions before the callbacks
 def create_single_question_heatmap(question, all_languages, graph_controls):
@@ -768,7 +1348,8 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     if not question.get('language_stats'):
         return go.Figure()
 
-    # Parse controls
+    # Parse controls with default values
+    graph_controls = graph_controls or []
     is_bar_graph = 'bar' in graph_controls
     show_mean = 'mean' in graph_controls
     show_mode = 'mode' in graph_controls
@@ -793,11 +1374,13 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     mean_value = sum(values) / len(values) if values else None
     mode_value = values[0] if values else None
 
-    # Calculate dynamic height based on number of languages and orientation
-    row_height = 25 if is_bar_graph else 15  # Adjust height based on orientation
-    margin_top = 50  # Reduced space for title since details are in HTML
-    margin_bottom = 60  # Space for bottom axis and labels
-    total_height = margin_top + (len(languages) * row_height) + margin_bottom
+    # Calculate dynamic height based on number of languages
+    num_languages = len(languages)
+    min_height = 400  # Minimum height
+    height_per_language = 25  # Reduced space per language
+    margin_top = 100  # Space for title and controls
+    margin_bottom = 40  # Bottom margin
+    total_height = max(min_height, margin_top + (num_languages * height_per_language) + margin_bottom)
 
     # Create the graph
     fig = go.Figure()
@@ -806,8 +1389,10 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
     if show_colors:
         marker_config = dict(
             color=values,
-            colorscale='RdYlBu',
-            showscale=False
+            colorscale='RdYlBu_r' if show_colors else None,
+            showscale=False,
+            line=dict(width=1, color='rgba(0,0,0,0.3)'),
+            opacity=0.85
         )
     else:
         marker_config = dict(
@@ -815,7 +1400,7 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
             line=dict(color='black', width=1)
         )
 
-    # Create hover template based on orientation
+    # Create hover template
     hover_template = (
         "<b>%{customdata[1]}</b><br>" +
         "<b>Response:</b> %{customdata[0]:.2f}<br>" +
@@ -823,127 +1408,153 @@ def create_single_question_heatmap(question, all_languages, graph_controls):
         "<extra></extra>"
     )
 
-    # Prepare customdata with all necessary information
+    # Prepare customdata
     customdata = [[val, lang, scale_labels[int(val) - 1] if 0 < int(val) <= len(scale_labels) else "Unknown"] 
                  for val, lang in zip(values, languages)]
 
     # Add the main trace
-    fig.add_trace(go.Bar(
-        x=languages if not is_bar_graph else values,
-        y=values if not is_bar_graph else languages,
-        orientation='v' if not is_bar_graph else 'h',
-        marker=marker_config,
-        text=values,
-        texttemplate='%{text:.2f}',
-        textposition='auto',
-        hovertemplate=hover_template,
-        customdata=customdata
-    ))
+    if is_bar_graph:
+        fig.add_trace(go.Bar(
+            x=values,
+            y=languages,
+            orientation='h',
+            marker=marker_config,
+            text=values,
+            texttemplate='%{text:.1f}',
+            textposition='auto',
+            hovertemplate=hover_template,
+            customdata=customdata,
+            width=0.8
+        ))
+    else:
+        fig.add_trace(go.Bar(
+            x=languages,
+            y=values,
+            orientation='v',
+            marker=marker_config,
+            text=values,
+            texttemplate='%{text:.1f}',
+            textposition='auto',
+            hovertemplate=hover_template,
+            customdata=customdata,
+            width=0.8
+        ))
 
     # Add mean and mode lines if enabled
-    if not is_bar_graph:
-        if show_mean:
-            fig.add_hline(
-                y=mean_value,
-                line_dash="solid",
-                line_color="black",
-                annotation_text=f"Mean: {mean_value:.2f}",
-                annotation_position="right",
-                annotation_font=dict(size=10)
-            )
-        if show_mode:
-            fig.add_hline(
-                y=mode_value,
-                line_dash="dash",
-                line_color="black",
-                annotation_text=f"Mode: {mode_value:.1f}",
-                annotation_position="left",
-                annotation_font=dict(size=10)
-            )
-    else:
-        if show_mean:
-            fig.add_vline(
-                x=mean_value,
-                line_dash="solid",
-                line_color="black",
-                annotation_text=f"Mean: {mean_value:.2f}",
-                annotation_position="top",
-                annotation_font=dict(size=10)
-            )
-        if show_mode:
-            fig.add_vline(
-                x=mode_value,
-                line_dash="dash",
-                line_color="black",
-                annotation_text=f"Mode: {mode_value:.1f}",
-                annotation_position="bottom",
-                annotation_font=dict(size=10)
-            )
+    if show_mean or show_mode:
+        annotation_font = dict(size=10, color='rgba(0,0,0,0.7)')
+        line_config = dict(width=1.5)
+        
+        if is_bar_graph:
+            if show_mean and mean_value is not None:
+                fig.add_vline(
+                    x=mean_value, 
+                    line=dict(dash="solid", color="rgba(0,0,0,0.7)", **line_config),
+                    annotation_text=f"Mean: {mean_value:.1f}",
+                    annotation_position="top", 
+                    annotation_font=annotation_font
+                )
+            if show_mode and mode_value is not None:
+                fig.add_vline(
+                    x=mode_value, 
+                    line=dict(dash="dash", color="rgba(0,0,0,0.5)", **line_config),
+                    annotation_text=f"Mode: {mode_value:.1f}",
+                    annotation_position="bottom", 
+                    annotation_font=annotation_font
+                )
+        else:
+            if show_mean and mean_value is not None:
+                fig.add_hline(
+                    y=mean_value, 
+                    line=dict(dash="solid", color="rgba(0,0,0,0.7)", **line_config),
+                    annotation_text=f"Mean: {mean_value:.1f}",
+                    annotation_position="right", 
+                    annotation_font=annotation_font
+                )
+            if show_mode and mode_value is not None:
+                fig.add_hline(
+                    y=mode_value, 
+                    line=dict(dash="dash", color="rgba(0,0,0,0.5)", **line_config),
+                    annotation_text=f"Mode: {mode_value:.1f}",
+                    annotation_position="left", 
+                    annotation_font=annotation_font
+                )
 
-    # Set axis configurations based on orientation
-    if not is_bar_graph:  # Column graph
+    # Set axis configurations
+    if is_bar_graph:
+        xaxis_config = dict(
+            title="",
+            range=[0, question['scale_max'] + 0.5],
+            gridcolor='lightgrey',
+            showgrid=True,
+            tickfont=dict(size=10),
+            tickmode='array',
+            ticktext=scale_labels,
+            tickvals=list(range(1, len(scale_labels) + 1)),
+            side='top'
+        )
+        yaxis_config = dict(
+            title="",
+            tickfont=dict(size=11),
+            automargin=True,
+            tickmode='array',
+            ticktext=languages,
+            tickvals=list(range(len(languages))),
+            side='left'
+        )
+    else:
         xaxis_config = dict(
             title="",
             tickfont=dict(size=10),
             tickangle=45,
-            automargin=True
-        )
-        yaxis_config = dict(
-            title="Response Value",
-            title_font=dict(size=10),
-            range=[0, question['scale_max'] + 0.5],
-            gridcolor='lightgrey',
-            showgrid=True,
-            tickfont=dict(size=10),
-            tickmode='array',
-            ticktext=scale_labels,
-            tickvals=list(range(1, len(scale_labels) + 1))
-        )
-    else:  # Bar graph
-        xaxis_config = dict(
-            title="Response Value",
-            title_font=dict(size=10),
-            range=[0, question['scale_max'] + 0.5],
-            gridcolor='lightgrey',
-            showgrid=True,
-            tickfont=dict(size=10),
-            tickmode='array',
-            ticktext=scale_labels,
-            tickvals=list(range(1, len(scale_labels) + 1))
-        )
-        yaxis_config = dict(
-            title="",
-            tickfont=dict(size=10),
             automargin=True,
             tickmode='array',
             ticktext=languages,
             tickvals=list(range(len(languages)))
         )
+        yaxis_config = dict(
+            title="",
+            range=[0, question['scale_max'] + 0.5],
+            gridcolor='lightgrey',
+            showgrid=True,
+            tickfont=dict(size=10),
+            tickmode='array',
+            ticktext=scale_labels,
+            tickvals=list(range(1, len(scale_labels) + 1))
+        )
 
+    # Update layout
     fig.update_layout(
         title={
-            'text': f"{question['question_id']}<br><span style='font-size: 12px'>{question['title']}</span>",
+            'text': f"{question['question_id']}: {question['title']}",
             'x': 0.5,
             'xanchor': 'center',
-            'y': 0.95,
+            'y': 0.98,
             'yanchor': 'top',
             'font': {'size': 16}
         },
-        height=total_height + 50,  # Maintain reduced height
+        height=total_height,
         margin=dict(
-            t=margin_top + 30,  # Slightly increased top margin for title
-            l=100,  # Left margin for labels
-            r=50,   # Right margin
-            b=margin_bottom  # Bottom margin for labels
+            t=margin_top,
+            l=150 if is_bar_graph else 50,
+            r=20,
+            b=margin_bottom if not is_bar_graph else 50,
+            pad=2
         ),
         xaxis=xaxis_config,
         yaxis=yaxis_config,
-        plot_bgcolor='white',
-        bargap=0.2,
+        plot_bgcolor='rgba(245,245,245,0.95)',
+        paper_bgcolor='white',
+        bargap=0.15,
         showlegend=False,
         uniformtext=dict(mode='hide', minsize=8),
-        dragmode='pan'
+        dragmode=False,
+        autosize=True
     )
+
+    # Update axes grids
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)')
+    fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='rgba(0,0,0,0.1)')
 
     return fig
 
@@ -1055,14 +1666,14 @@ def create_comparison_graph(data, selected_languages):
                 hoverinfo='text'
             ))
 
-    # Create the figure
+    # Create the figure with restricted interactions
     fig = go.Figure(data=traces)
     
     # Get overall min and max scale values
     min_scale = min(q['scale_min'] for q in questions_data)
     max_scale = max(q['scale_max'] for q in questions_data)
     
-    # Update layout
+    # Update layout with interaction restrictions
     fig.update_layout(
         title={
             'text': 'Language Response Values with Mean ±2SD',
@@ -1080,19 +1691,23 @@ def create_comparison_graph(data, selected_languages):
             xanchor="left",
             x=0.01
         ),
-        margin=dict(t=100, b=150),  # Increase bottom margin for labels
+        margin=dict(t=100, b=150),
         xaxis=dict(
             tickmode='array',
             ticktext=question_labels,
             tickvals=x_positions,
             tickangle=45,
-            tickfont=dict(size=10)
+            tickfont=dict(size=10),
+            fixedrange=True
         ),
         yaxis=dict(
-            range=[min_scale - 0.5, max_scale + 0.5],  # Add some padding
+            range=[0, max_scale + 0.5],  # Changed to start from 0
             gridcolor='lightgray',
-            gridwidth=1
-        )
+            gridwidth=1,
+            fixedrange=True
+        ),
+        dragmode=False,
+        paper_bgcolor='white'
     )
     
     return fig
@@ -1159,15 +1774,24 @@ def create_z_score_summary_graph(data, available_languages=None):
     fig = go.Figure(data=[go.Bar(
         x=list(sorted_langs),
         y=list(sorted_scores),
-        marker_color='#1f77b4',  # Standard blue color
+        marker_color='#1f77b4',
         hovertemplate='<b>Language:</b> %{x}<br><b>Avg. Abs. Z-Score:</b> %{y:.3f}<extra></extra>'
     )])
 
+    # Update layout with interaction restrictions
     fig.update_layout(
         xaxis_title="Language",
         yaxis_title="Average Absolute Z-Score",
-        xaxis=dict(tickangle=45),
-        margin=dict(l=60, r=30, t=30, b=100)
+        xaxis=dict(
+            tickangle=45,
+            fixedrange=True
+        ),
+        yaxis=dict(
+            fixedrange=True
+        ),
+        margin=dict(l=60, r=30, t=30, b=100),
+        dragmode=False,
+        paper_bgcolor='white'
     )
 
     return fig

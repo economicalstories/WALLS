@@ -1,6 +1,99 @@
 # WALLS: Wittgenstein's Analysis of LLM Language Systems
 
-WALLS explores how a large language model (LLM) responds to standardized survey prompts in multiple languages. Inspired by Wittgenstein’s idea that “the limits of my language are the limits of my world,” the project uses Likert-scale ratings to compare the “values” expressed by the AI across different linguistic contexts.
+A project investigating how large language models respond to standardized survey-style prompts in different languages.
+
+## Project Structure
+
+```
+WALLS/
+├── api/                    # Dashboard and survey data
+│   ├── dashboard.py        # Interactive web dashboard
+│   ├── surveys/           # Survey data and results
+│   │   └── wvs/          # Example survey (World Values Survey)
+│   │       ├── questions.json  # Survey questions
+│   │       └── data/     # Survey results
+│   └── assets/           # Dashboard assets
+├── survey_tools/         # Survey processing tools
+│   ├── survey_runner.py  # Runs surveys using OpenAI API
+│   ├── translator.py     # Handles translation of questions
+│   └── result_processor.py  # Processes results for dashboard
+├── run_survey.py        # Main entry point
+└── config.py           # Configuration settings
+```
+
+## Quick Start
+
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Configure your OpenAI API key in `config.py`:
+   ```python
+   API_KEY = "your-api-key-here"
+   ```
+
+3. Run a survey:
+   ```bash
+   # Run new survey and process results
+   python run_survey.py wvs
+
+   # Or just process existing results
+   python run_survey.py wvs --skip-survey
+   ```
+
+4. View results in the dashboard:
+   ```bash
+   python api/dashboard.py
+   ```
+   Then open http://localhost:8080 in your browser.
+
+## Adding a New Survey
+
+1. Create a new survey directory:
+   ```bash
+   mkdir -p api/surveys/your_survey_id/data
+   ```
+
+2. Create `questions.json` in your survey directory:
+   ```json
+   {
+     "questions": [
+       {
+         "question_id": "Q1",
+         "question_title": "Example Question",
+         "category": "Category",
+         "prompt_text": "On a scale of 1-5, how much...",
+         "scale_min": 1,
+         "scale_max": 5,
+         "scale_labels": {
+           "1": "Not at all",
+           "5": "Very much"
+         }
+       }
+     ]
+   }
+   ```
+
+3. Run your survey:
+   ```bash
+   python run_survey.py your_survey_id
+   ```
+
+## Dashboard Views
+
+The dashboard provides three views:
+1. **Matrix View**: Overview of all questions and languages
+2. **Question View**: Detailed analysis of individual questions
+3. **Language Comparison**: Compare responses across languages
+
+## Configuration
+
+Edit `config.py` to configure:
+- OpenAI API settings (key, model, delay)
+- Languages to test
+- Number of trials per question
+- Translation settings
 
 ---
 
@@ -8,19 +101,19 @@ WALLS explores how a large language model (LLM) responds to standardized survey 
 
 ### Language & AI Cognition
 - **Cross-Linguistic Consistency:**  
-  - Do LLMs show consistent “values” across languages?  
+  - Do LLMs show consistent "values" across languages?  
   - How do cultural nuances affect AI responses?  
   - Can systematic biases be identified?
 
 - **Translation Effects:**  
   - How does translation impact semantic integrity?  
-  - Are some concepts “lost in translation”?  
+  - Are some concepts "lost in translation"?  
   - Can translation drift be measured?
 
 - **Value Systems and Language:**  
   - How do linguistic structures influence the expression of values?  
   - Which value concepts remain stable across languages?  
-  - What role does language play in forming AI “belief systems”?
+  - What role does language play in forming AI "belief systems"?
 
 ### Methodology
 Building on the World Values Survey (WVS) Wave 7 questionnaire, the study focuses on four domains:
@@ -30,7 +123,7 @@ Building on the World Values Survey (WVS) Wave 7 questionnaire, the study focuse
 - **Political Culture:** Democratic values, authority, and political ideology.
 - **Religious Values:** Beliefs, practices, and moral frameworks.
 
-This structured approach enables a consistent comparison of AI responses, highlighting cross-linguistic patterns and the stability of AI “belief systems.”
+This structured approach enables a consistent comparison of AI responses, highlighting cross-linguistic patterns and the stability of AI "belief systems."
 
 ---
 
@@ -159,7 +252,7 @@ MIT License (see included license text for full details).
 
 ## Credits
 - **Survey Questions:** Adapted from the WVS Wave 7 Master Questionnaire.
-- **Inspiration:** Based on Ludwig Wittgenstein’s work on language and meaning.
-- **Technology:** Built using OpenAI’s GPT models and modern data visualization tools.
+- **Inspiration:** Based on Ludwig Wittgenstein's work on language and meaning.
+- **Technology:** Built using OpenAI's GPT models and modern data visualization tools.
 
 ---

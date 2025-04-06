@@ -176,16 +176,13 @@ cython_debug/
 # Environment variables
 .env
 
-# Optional: Ignore output files
-results.csv
-.vercel
-
-# Vercel specific ignores (these files will be in Git but not deployed to Vercel)
-.vercel
+# Legacy data directory (if any)
 /data/
-data/*.json
-results_*.json
 
-# Keep these files in Git and Vercel
-!api/data/latest_results.json
-!api/data/.gitkeep
+# Vercel
+.vercel
+
+# Survey data is tracked in git
+!api/surveys/*/questions.json
+!api/surveys/*/data/results_*.json
+!api/surveys/*/data/data_*.csv

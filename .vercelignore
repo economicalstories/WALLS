@@ -11,13 +11,12 @@ ENV/
 /*
 !/api
 
-# Keep data minimal
-/data
+# Exclude large data files from deployment
 *.csv
 api/surveys/*/data/*.csv
 api/surveys/*/data/data_*.csv
 
-# Explicitly allow these files
+# Explicitly allow JSON files
 !api/surveys/wvs/data/results_*.json
 !api/surveys/wvs/questions.json
 

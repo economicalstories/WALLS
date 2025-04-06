@@ -16,7 +16,10 @@ ENV/
 *.csv
 api/surveys/*/data/*.csv
 api/surveys/*/data/data_*.csv
-!api/data/latest_results.json
+
+# Explicitly allow these files
+!api/surveys/wvs/data/results_*.json
+!api/surveys/wvs/questions.json
 
 # Development files
 README.md

@@ -554,7 +554,8 @@ def create_question_view(data, default_view=None, initial_figure=None):
                     {'label': ' Show as Bar Graph', 'value': 'bar'},
                     {'label': ' Show Mean Line', 'value': 'mean'},
                     {'label': ' Show Mode Line', 'value': 'mode'},
-                    {'label': ' Show Colors', 'value': 'colors'}
+                    {'label': ' Show Colors', 'value': 'colors'},
+                    {'label': ' Show Error Bars', 'value': 'error_bars'}
                 ],
                 value=default_controls,
                 style={'margin': '10px', 'fontSize': '12px' if default_view == 'bar' else '14px'}
@@ -672,7 +673,7 @@ def create_comparison_view(data):
 
 # Update header with consistent styling and load button
 header = html.Div([
-    html.H1("WALLS: Wittgenstein's Analysis of LLM Language Systems", 
+    html.H1("WALLS: Wittgenstein's Analysis of LLM Language Systems (Research Preview)", 
             style=dict(heading_style, **{
                 'fontSize': '32px',  # Increased from 28px
                 'margin': '30px 10px 20px',  # Adjusted margins
@@ -682,9 +683,11 @@ header = html.Div([
                 'fontWeight': '600'  # Slightly bolder
             })),
     html.P([
+        "NOTE this is currently a research preview limited samples per language and is not statistically robust. ",
+        "Please use at your own risk, and DO NOT use or attribute these charts without performing underlying statistical tests. "
         "A project investigating how large language models respond to standardized survey-style prompts in different languages. ",
         "Inspired by Wittgenstein's assertion that 'the limits of my language are the limits of my world,' ",
-        "this project uses numeric outputs to compare the 'values' expressed by the LLM when prompted in various languages."
+        "this project uses numeric outputs to compare the 'values' expressed by the LLM when prompted in various languages.            "
     ], style=dict(subtitle_style, **{
         'fontSize': '15px',  # Increased from 14px
         'padding': '0 20px',  # Increased padding
@@ -1076,7 +1079,8 @@ def load_survey_data(n_clicks, is_initial, device_type, selected_survey, selecte
                             {'label': ' Show as Bar Graph', 'value': 'bar'},
                             {'label': ' Show Mean Line', 'value': 'mean'},
                             {'label': ' Show Mode Line', 'value': 'mode'},
-                            {'label': ' Show Colors', 'value': 'colors'}
+                            {'label': ' Show Colors', 'value': 'colors'},
+                            {'label': ' Show Error Bars', 'value': 'error_bars'}
                         ],
                         value=['bar', 'colors'],
                         style={'margin': '10px', 'fontSize': '12px'}
@@ -1269,6 +1273,22 @@ def update_question_heatmap(selected_question, graph_controls, device_type):
     
     # Create updated figure with current controls
     fig = create_single_question_heatmap(question, languages, graph_controls)
+    
+    # Add error bars if enabled
+    if 'error_bars' in graph_controls:
+        for trace in fig.data:
+            if 'y' in trace:
+                trace.error_y = dict(
+                    type='data',
+                    array=[2 * question['language_stats'][lang]['std'] / (question['language_stats'][lang]['count'] ** 0.5) for lang in languages],
+                    visible=True
+                )
+            elif 'x' in trace:
+                trace.error_x = dict(
+                    type='data',
+                    array=[2 * question['language_stats'][lang]['std'] / (question['language_stats'][lang]['count'] ** 0.5) for lang in languages],
+                    visible=True
+                )
     
     # For mobile view, adjust the layout
     if device_type == 'mobile':

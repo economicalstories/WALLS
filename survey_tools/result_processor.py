@@ -46,7 +46,8 @@ def process_results(input_filename, survey_id):
                     if not responses.empty:
                         lang_stats_dict[lang] = {
                             'count': int(len(responses)),
-                            'mean': float(responses.mean())
+                            'mean': float(responses.mean()),
+                            'std': float(responses.std())  # Calculate standard deviation
                         }
             
             # Only add questions that have valid responses

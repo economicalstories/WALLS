@@ -168,7 +168,7 @@ This structured approach enables a consistent comparison of AI responses, highli
    ```
 3. **Run the Survey:**
    ```bash
-   python main.py
+   python run_survey.py
    ```
 
 ### Data Processing
@@ -234,13 +234,18 @@ Access the dashboard at [http://localhost:8080](http://localhost:8080).
 - Develop robust translation systems.
 - Innovate cross-cultural methodologies in social science and AI ethics.
 
-### Future Directions
-- **Expanded Language Coverage:**  
+### Future Directions - To do
+- **Robustness tests for statistical validity and interpretation of results**
+  Statistically validation to academic benchmarks (Perform robust statistical tests to confirm statistical validity of results)
+- **Model Selection**
+  Allow test against other models (OpenAI and beyond)
+- **Human and AI comparisons**
+  Cross-validate findings with human studies.
+- **Expanded Coverage:**  
   Include more languages, dialects, and regional variations.
-- **Enhanced Analysis Tools:**  
-  Integrate advanced statistical methods and interactive visualization techniques.
+  Extend beyond WVS to include other cross-country, cross language tests (Pew, etc)
 - **Collaborative Studies:**  
-  Collaborate with WVS researchers and cross-validate findings with human studies.
+  Collaborate with WVS researchers and   
 
 ---
 
@@ -256,3 +261,4 @@ MIT License (see included license text for full details).
 - **Technology:** Built using OpenAI's GPT models and modern data visualization tools.
 
 ---
+py

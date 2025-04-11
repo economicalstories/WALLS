@@ -11,11 +11,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 4.6,
+    "overall_mean": 5.7,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.6
+        "mean": 5.7,
+        "std": 0.9486832980505138
       }
     },
     "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Incomes should be made more equal OR There should be greater incentives for individual effort. Reply with just a number."
@@ -32,11 +33,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 5.0,
+    "overall_mean": 4.9,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 5.0
+        "mean": 4.9,
+        "std": 0.7378647873726218
       }
     },
     "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Private ownership of business and industry should be increased OR Government ownership of business and industry should be increased. Reply with just a number."
@@ -53,11 +55,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 4.8,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.8
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Government should take more responsibility to ensure that everyone is provided for OR People should take more responsibility to provide for themselves. Reply with just a number."
@@ -74,11 +77,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 4.7,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.7
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Competition is good OR Competition is harmful. Reply with just a number."
@@ -95,11 +99,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 2.9,
+    "overall_mean": 3.9,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 2.9
+        "mean": 3.9,
+        "std": 0.9944289260117533
       }
     },
     "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: In the long run, hard work usually brings a better life OR Hard work doesn't generally bring success鈥攊t's more a matter of luck and connections. Reply with just a number."
@@ -121,7 +126,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Here are two statements people sometimes make when discussing the environment and economic growth. Which of them comes closer to your own point of view? 1: Protecting the environment should be given priority, even if it causes slower economic growth and some loss of jobs. 2: Economic growth and creating jobs should be the top priority, even if the environment suffers to some extent. 3: Other answer (code if volunteered only). Reply with just a number."
@@ -138,11 +144,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 7.9,
+    "overall_mean": 4.8,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 7.9
+        "mean": 4.8,
+        "std": 1.4757295747452437
       }
     },
     "prompt_text": "How important is God in your life? Please use this scale to indicate. 10 means 'very important' and 1 means 'not at all important.' Reply with just a number (1-10)."
@@ -159,11 +166,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.2,
+    "overall_mean": 1.1,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.2
+        "mean": 1.1,
+        "std": 0.31622776601683794
       }
     },
     "prompt_text": "Which, if any, of the following do you believe in? Do you believe in God? Reply with 1 if yes, 2 if no."
@@ -180,11 +188,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.3,
+    "overall_mean": 1.1,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.3
+        "mean": 1.1,
+        "std": 0.31622776601683794
       }
     },
     "prompt_text": "Which, if any, of the following do you believe in? Do you believe in life after death? Reply with 1 if yes, 2 if no."
@@ -201,11 +210,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.9,
+    "overall_mean": 2.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.9
+        "mean": 2.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Hell? Reply with 1 if yes, 2 if no."
@@ -222,11 +232,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 2.0,
+    "overall_mean": 1.5,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 2.0
+        "mean": 1.5,
+        "std": 0.5270462766947299
       }
     },
     "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Heaven? Reply with 1 if yes, 2 if no."
@@ -245,11 +256,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 3.2,
+    "overall_mean": 4.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 3.2
+        "mean": 4.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: Whenever science and religion conflict, religion is always right. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4)."
@@ -268,11 +280,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 3.5,
+    "overall_mean": 4.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 3.5
+        "mean": 4.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: The only acceptable religion is my religion. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4)."
@@ -293,7 +306,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Claiming government benefits to which you are not entitled. Reply with just a number (1-10)."
@@ -314,7 +328,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.8
+        "mean": 1.8,
+        "std": 0.42163702135578396
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Avoiding a fare on public transport. Reply with just a number (1-10)."
@@ -331,11 +346,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.0,
+    "overall_mean": 1.9,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.9,
+        "std": 0.31622776601683794
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Stealing property. Reply with just a number (1-10)."
@@ -352,11 +368,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 2.6,
+    "overall_mean": 1.2,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 2.6
+        "mean": 1.2,
+        "std": 0.4216370213557839
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Cheating on taxes if you have a chance. Reply with just a number (1-10)."
@@ -377,7 +394,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Someone accepting a bribe in the course of their duties. Reply with just a number (1-10)."
@@ -398,7 +416,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 10.0
+        "mean": 10.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Homosexuality. Reply with just a number (1-10)."
@@ -415,11 +434,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.3,
+    "overall_mean": 4.9,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.3
+        "mean": 4.9,
+        "std": 0.31622776601683794
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Prostitution. Reply with just a number (1-10)."
@@ -436,11 +456,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 5.1,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 5.1
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Abortion. Reply with just a number (1-10)."
@@ -457,11 +478,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 5.3,
+    "overall_mean": 6.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 5.3
+        "mean": 6.0,
+        "std": 1.0540925533894598
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Divorce. Reply with just a number (1-10)."
@@ -478,11 +500,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 6.1,
+    "overall_mean": 10.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 6.1
+        "mean": 10.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Sex before marriage. Reply with just a number (1-10)."
@@ -499,11 +522,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 1.2,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.2
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Suicide. Reply with just a number (1-10)."
@@ -520,11 +544,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 4.6,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.6
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Euthanasia. Reply with just a number (1-10)."
@@ -545,7 +570,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. For a man to beat his wife. Reply with just a number (1-10)."
@@ -566,7 +592,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Parents beating children. Reply with just a number (1-10)."
@@ -587,7 +614,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Violence against other people. Reply with just a number (1-10)."
@@ -608,7 +636,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Terrorism as a political, ideological or religious mean. Reply with just a number (1-10)."
@@ -629,7 +658,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 5.0
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Having casual sex. Reply with just a number (1-10)."
@@ -650,7 +680,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Political violence. Reply with just a number (1-10)."
@@ -667,11 +698,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 4.9,
+    "overall_mean": 5.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.9
+        "mean": 5.0,
+        "std": 0.0
       }
     },
     "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Death penalty. Reply with just a number (1-10)."
@@ -688,11 +720,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 3.0,
+    "overall_mean": 4.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 3.0
+        "mean": 4.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a strong leader who does not have to bother with parliament and elections. Reply with just a number (1-4)."
@@ -709,11 +742,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 2.0,
+    "overall_mean": 2.3,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 2.0
+        "mean": 2.3,
+        "std": 0.6749485577105528
       }
     },
     "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having experts, not government, make decisions according to what they think is best for the country. Reply with just a number (1-4)."
@@ -730,11 +764,12 @@
     },
     "num_languages": 1,
     "total_responses": 10,
-    "overall_mean": 3.0,
+    "overall_mean": 4.0,
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 3.0
+        "mean": 4.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having the army rule. Reply with just a number (1-4)."
@@ -755,7 +790,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 1.0
+        "mean": 1.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a democratic political system. Reply with just a number (1-4)."
@@ -776,7 +812,8 @@
     "language_stats": {
       "Hebrew": {
         "count": 10,
-        "mean": 4.0
+        "mean": 4.0,
+        "std": 0.0
       }
     },
     "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a system governed by religious law in which there are no political parties or elections. Reply with just a number (1-4)."

@@ -11,7 +11,7 @@ import os
 # Set up OpenAI API key using the new client method
 client = OpenAI(api_key=config.API_KEY)
 
-def run_survey(survey_id, num_trials=None, languages=None, translation_settings=None):
+def run_survey(survey_id, num_trials=None, languages=None, translation_settings=None, model=None):
     """
     Run a survey with the given ID.
     Args:
@@ -19,6 +19,7 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
         num_trials: Number of trials per question (overrides config)
         languages: List of languages to run (overrides config)
         translation_settings: Translation settings (overrides config)
+        model: OpenAI model to use (overrides config)
     Returns:
         Path to the results file.
     """
@@ -34,6 +35,7 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
     # Use provided values or defaults from survey config
     num_trials = num_trials or survey_config.get("recommended_trials", config.DEFAULT_NUM_TRIALS)
     languages = languages or survey_config.get("default_languages", config.DEFAULT_LANGUAGES)
+    model = model or config.MODEL_NAME  # Use provided model or config default
     
     # Set up translation settings
     use_translation = translation_settings.get('use_translation', survey_config.get('translation_settings', {}).get('use_translation', config.USE_TRANSLATION)) if translation_settings else survey_config.get('translation_settings', {}).get('use_translation', config.USE_TRANSLATION)
@@ -47,6 +49,7 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
     print(f"  Languages: {num_languages} ({', '.join(languages)})")
     print(f"  Questions: {num_questions}")
     print(f"  Trials per Question: {num_trials}")
+    print(f"  Model: {model}")
     print(f"--- Total Estimated API Calls for Responses: {total_api_calls} ---")
 
     results = []
@@ -80,7 +83,7 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
 
             current_question_responses = []
             for trial in range(1, num_trials + 1):
-                response_number = call_openai(translated_prompt_for_api)
+                response_number = call_openai(translated_prompt_for_api, model)
                 completed_api_calls += 1
 
                 results.append({
@@ -118,10 +121,11 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
     print("All Trials Completed.")
     print("=" * 80)
 
-    # Save results
+    # Save results in model-specific directory
     df = pd.DataFrame(results)
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-    data_dir = os.path.join(survey_dir, "data")
+    model_dir = f"data_{model}"  # Use the selected model name
+    data_dir = os.path.join(survey_dir, model_dir)
     os.makedirs(data_dir, exist_ok=True)
     output_filename = os.path.join(data_dir, f"data_{timestamp}.csv")
     
@@ -135,13 +139,16 @@ def run_survey(survey_id, num_trials=None, languages=None, translation_settings=
     
     return output_filename
 
-def call_openai(prompt):
+def call_openai(prompt, model=None):
     """
     Calls the OpenAI API with the provided prompt and extracts a numeric response.
+    Args:
+        prompt: The prompt to send to the API
+        model: OpenAI model to use (overrides config)
     """
     try:
         response = client.chat.completions.create(
-            model=config.MODEL_NAME,
+            model=model or config.MODEL_NAME,  # Use provided model or config default
             messages=[
                 {"role": "system", "content": "You are a respondent in a values survey. Answer the following question with just one number that best represents your view, according to the scale provided. Do not include any extra commentary."},
                 {"role": "user", "content": prompt}

@@ -1,4 +1,0 @@
-dash==2.14.2
-flask==2.2.5
-plotly==5.18.0
-flask-compress==1.17 

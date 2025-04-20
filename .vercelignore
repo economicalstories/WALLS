@@ -1,26 +1,36 @@
-# Development and environment
-.git
+# Exclude specific file types that might be large or unnecessary
+**/*.csv
+**/*.xlsx
+**/*.xls
+**/*.zip
+**/*.tar.gz
+**/*.log
+
+# Exclude common development/environment directories and files
+.git/
 .gitignore
-.env
+.env*
 .idea/
 .vscode/
 venv/
 ENV/
+.pytest_cache/
+__pycache__/
+*.pyc
+node_modules/
+.next/
+dist/
 
-# Keep only the api directory
-/*
-!/api
+# Exclude specific local Vercel state
+.vercel/
 
-# Exclude large data files from deployment
-*.csv
-api/surveys/*/data/*.csv
-api/surveys/*/data/data_*.csv
-
-# Explicitly allow JSON files
-!api/surveys/wvs/data/results_*.json
-!api/surveys/wvs/questions.json
-
-# Development files
+# Exclude documentation and test files if not needed in deployment
 README.md
 LICENSE
-create_static_dashboard.py 
+test_*.py
+*_test.py
+tests/
+
+# Exclude OS-specific files
+.DS_Store
+Thumbs.db 

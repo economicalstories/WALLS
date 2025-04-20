@@ -12,6 +12,11 @@ load_dotenv()
 # OpenAI API Configuration
 API_KEY = os.getenv('OPENAI_API_KEY')
 MODEL_NAME = os.getenv('OPENAI_MODEL', 'gpt-4o')  # Default to GPT-4 if not specified
+#gpt-4-turbo
+#gpt-4
+#gpt-3.5-turbo
+
+
 API_DELAY = float(os.getenv('API_DELAY', '0'))  # Delay between API calls in seconds
 
 # Default settings (can be overridden in survey config)

@@ -1,0 +1,9 @@
+.noVisibleScrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.noVisibleScrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,3 @@
+"""
+WALLS package initialization.
+""" 

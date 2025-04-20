@@ -2,21 +2,51 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.py",
+      "src": "vercel_app.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "50mb",
-        "runtime": "python3.12"
+        "runtime": "python3.9",
+        "includeFiles": [
+          "api/app.py",
+          "api/__init__.py",
+          "api/**/*",
+          "config/**/*",
+          "survey_tools/**/*"
+        ]
       }
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/api/index.py"
+      "src": "/assets/(.*)",
+      "dest": "/vercel_app.py"
+    },
+    {
+      "src": "/_dash-component-suites/(.*)",
+      "dest": "/vercel_app.py"
+    },
+    {
+      "src": "/_dash-layout",
+      "dest": "/vercel_app.py"
+    },
+    {
+      "src": "/_dash-dependencies",
+      "dest": "/vercel_app.py"
+    },
+    {
+      "src": "/_reload-hash",
+      "dest": "/vercel_app.py"
+    },
+    {
+      "src": "/.*",
+      "dest": "/vercel_app.py"
     }
   ],
   "env": {
-    "PYTHONPATH": "."
+    "PYTHONPATH": "/var/task",
+    "PYTHONUNBUFFERED": "1",
+    "DASH_DEBUG": "true",
+    "DASH_REQUESTS_PATHNAME_PREFIX": "/"
   }
 } 

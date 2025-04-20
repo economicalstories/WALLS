@@ -1,0 +1,3580 @@
+{
+  "results": [
+    {
+      "question_id": "Q106",
+      "title": "Income vs Incentives",
+      "category": "Economic Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Incomes should be made more equal",
+        "max": "Greater incentives for individual effort"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.008333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.05,
+          "std": 0.15811388300841897,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Incomes should be made more equal OR There should be greater incentives for individual effort. Reply with just a number."
+    },
+    {
+      "question_id": "Q107",
+      "title": "Ownership Preference",
+      "category": "Economic Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Increase private ownership",
+        "max": "Increase government ownership"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.0,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Private ownership of business and industry should be increased OR Government ownership of business and industry should be increased. Reply with just a number."
+    },
+    {
+      "question_id": "Q108",
+      "title": "Responsibility for Provision",
+      "category": "Economic Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Government takes responsibility",
+        "max": "Individuals take responsibility"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.966666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Government should take more responsibility to ensure that everyone is provided for OR People should take more responsibility to provide for themselves. Reply with just a number."
+    },
+    {
+      "question_id": "Q109",
+      "title": "Competition Effect",
+      "category": "Economic Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Competition is good",
+        "max": "Competition is harmful"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.0,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Competition is good OR Competition is harmful. Reply with just a number."
+    },
+    {
+      "question_id": "Q110",
+      "title": "Hard Work Outcome",
+      "category": "Economic Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Hard work leads to a better life",
+        "max": "Success due to luck/connections"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.316666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 2.8,
+          "std": 1.7511900715418263,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.1,
+          "std": 0.5676462121975466,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: In the long run, hard work usually brings a better life OR Hard work doesn't generally bring success鈥攊t's more a matter of luck and connections. Reply with just a number."
+    },
+    {
+      "question_id": "Q111",
+      "title": "Environmental vs Economic Priorities",
+      "category": "Social Values & Attitudes",
+      "scale_min": 1,
+      "scale_max": 3,
+      "scale_labels": {
+        "1": "Environment prioritized",
+        "2": "Economic growth prioritized",
+        "3": "Other"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 1.0,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Here are two statements people sometimes make when discussing the environment and economic growth. Which of them comes closer to your own point of view? 1: Protecting the environment should be given priority, even if it causes slower economic growth and some loss of jobs. 2: Economic growth and creating jobs should be the top priority, even if the environment suffers to some extent. 3: Other answer (code if volunteered only). Reply with just a number."
+    },
+    {
+      "question_id": "Q164",
+      "title": "Importance of God",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Not at all important",
+        "max": "Very important"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 7.033333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 8.3,
+          "std": 1.0593499054713802,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 7.0,
+          "std": 1.1547005383792515,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 7.4,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.5,
+          "std": 1.0801234497346435,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 6.4,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 7.6,
+          "std": 0.5163977794943222,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "How important is God in your life? Please use this scale to indicate. 10 means 'very important' and 1 means 'not at all important.' Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q165",
+      "title": "Belief in God",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 1.1166666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.7,
+          "std": 0.48304589153964794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in God? Reply with 1 if yes, 2 if no."
+    },
+    {
+      "question_id": "Q166",
+      "title": "Belief in Life After Death",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 1.0833333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.42163702135578396,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.42163702135578396,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in life after death? Reply with 1 if yes, 2 if no."
+    },
+    {
+      "question_id": "Q167",
+      "title": "Belief in Hell",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.0,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Hell? Reply with 1 if yes, 2 if no."
+    },
+    {
+      "question_id": "Q168",
+      "title": "Belief in Heaven",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 1.05,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.4216370213557839,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Heaven? Reply with 1 if yes, 2 if no."
+    },
+    {
+      "question_id": "Q169",
+      "title": "Science vs Religion Conflict",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Strongly agree",
+        "2": "Agree",
+        "3": "Disagree",
+        "4": "Strongly disagree"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 3.0666666666666664,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.4,
+          "std": 0.5163977794943223,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: Whenever science and religion conflict, religion is always right. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q170",
+      "title": "Exclusivity of Religion",
+      "category": "Religious Values",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Strongly agree",
+        "2": "Agree",
+        "3": "Disagree",
+        "4": "Strongly disagree"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.9166666666666665,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 2.5,
+          "std": 0.7071067811865476,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.4714045207910317,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: The only acceptable religion is my religion. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q177",
+      "title": "Justification: Claiming Benefits",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 57,
+      "overall_mean": 4.733333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 9,
+          "mean": 3.5555555555555554,
+          "std": 1.4240006242195884,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 9,
+          "mean": 7.777777777777778,
+          "std": 0.8333333333333334,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 9,
+          "mean": 4.666666666666667,
+          "std": 4.2130748865881795,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 2.6,
+          "std": 0.6992058987801011,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Claiming government benefits to which you are not entitled. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q178",
+      "title": "Justification: Avoiding Fare",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.233333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.5,
+          "std": 0.7071067811865476,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.3,
+          "std": 0.9486832980505138,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.6,
+          "std": 0.9660917830792959,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Avoiding a fare on public transport. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q179",
+      "title": "Justification: Stealing Property",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 3.65,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 4.6,
+          "std": 0.9660917830792958,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.1,
+          "std": 0.8755950357709131,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.9,
+          "std": 0.8755950357709131,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.6,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.7,
+          "std": 0.8232726023485646,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Stealing property. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q180",
+      "title": "Justification: Cheating on Taxes",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.033333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 3.4,
+          "std": 1.577621275493231,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.4714045207910317,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.0,
+          "std": 1.0540925533894598,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.8,
+          "std": 0.7888106377466155,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Cheating on taxes if you have a chance. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q181",
+      "title": "Justification: Accepting a Bribe",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.3833333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 3.5,
+          "std": 1.0801234497346435,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 2.6,
+          "std": 0.6992058987801011,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 3.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.1,
+          "std": 0.8755950357709131,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Someone accepting a bribe in the course of their duties. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q182",
+      "title": "Justification: Homosexuality",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.25,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.9,
+          "std": 1.4491376746189437,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.6,
+          "std": 1.2649110640673518,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Homosexuality. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q183",
+      "title": "Justification: Prostitution",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.833333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.3,
+          "std": 0.6749485577105528,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Prostitution. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q184",
+      "title": "Justification: Abortion",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.966666666666666,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.1,
+          "std": 0.7378647873726218,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.2,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.6,
+          "std": 0.699205898780101,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Abortion. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q185",
+      "title": "Justification: Divorce",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.033333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Divorce. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q186",
+      "title": "Justification: Sex Before Marriage",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.933333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.4714045207910317,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.4216370213557839,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Sex before marriage. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q187",
+      "title": "Justification: Suicide",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.6,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 4.2,
+          "std": 1.6865480854231358,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.1,
+          "std": 0.7378647873726218,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.4,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.6,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 4.3,
+          "std": 0.8232726023485646,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Suicide. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q188",
+      "title": "Justification: Euthanasia",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 5.183333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.3,
+          "std": 0.48304589153964794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.9,
+          "std": 1.5238839267549946,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Euthanasia. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q189",
+      "title": "Justification: Man Beating Wife",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 5,
+      "total_responses": 50,
+      "overall_mean": 1.06,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. For a man to beat his wife. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q190",
+      "title": "Justification: Parents Beating Children",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 3.65,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 3.1,
+          "std": 1.5951314818673865,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 2.9,
+          "std": 0.8755950357709131,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Parents beating children. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q191",
+      "title": "Justification: Violence Against Others",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 3.766666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 2.1,
+          "std": 2.8067379246694513,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 4.4,
+          "std": 1.0749676997731399,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.3,
+          "std": 1.0593499054713802,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.0,
+          "std": 0.9428090415820634,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.9428090415820634,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Violence against other people. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q192",
+      "title": "Justification: Terrorism as a Means",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 58,
+      "overall_mean": 1.5458333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 8,
+          "mean": 1.375,
+          "std": 0.5175491695067657,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.42163702135578396,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 1.247219128924647,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.7,
+          "std": 0.9486832980505138,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Terrorism as a political, ideological or religious mean. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q193",
+      "title": "Justification: Having Casual Sex",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.866666666666666,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 5.3,
+          "std": 0.8232726023485646,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 5.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.4,
+          "std": 0.9660917830792959,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 4.4,
+          "std": 0.8432740427115678,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Having casual sex. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q194",
+      "title": "Justification: Political Violence",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.583333333333334,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 4.5,
+          "std": 1.0801234497346435,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.3,
+          "std": 0.8232726023485646,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Political violence. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q195",
+      "title": "Justification: Death Penalty",
+      "category": "Ethical Values and Norms",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 4.483333333333333,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 5.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 4.6,
+          "std": 0.6992058987801011,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.8,
+          "std": 0.7888106377466155,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 4.8,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.9,
+          "std": 0.7378647873726218,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Death penalty. Reply with just a number (1-10)."
+    },
+    {
+      "question_id": "Q235",
+      "title": "Political System: Strong Leader",
+      "category": "Political Culture & Political Regimes",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.216666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.8,
+          "std": 1.0327955589886446,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.7,
+          "std": 0.8232726023485646,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 2.2,
+          "std": 0.4216370213557839,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 2.2,
+          "std": 0.4216370213557839,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 2.5,
+          "std": 0.5270462766947299,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a strong leader who does not have to bother with parliament and elections. Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q236",
+      "title": "Political System: Expert Rule",
+      "category": "Political Culture & Political Regimes",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.6666666666666665,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.5,
+          "std": 0.7071067811865476,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.8,
+          "std": 1.0327955589886446,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 2.5,
+          "std": 0.8498365855987975,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.6666666666666666,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 3.2,
+          "std": 0.4216370213557839,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 3.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having experts, not government, make decisions according to what they think is best for the country. Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q237",
+      "title": "Political System: Army Rule",
+      "category": "Political Culture & Political Regimes",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.3000000000000003,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 3.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.1,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 2.0,
+          "std": 0.4714045207910317,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 2.6,
+          "std": 0.9660917830792959,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 2.2,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having the army rule. Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q238",
+      "title": "Political System: Democratic System",
+      "category": "Political Culture & Political Regimes",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 1.4166666666666667,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 1.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.4,
+          "std": 1.505545305418162,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 1.2,
+          "std": 0.6324555320336759,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 1.0,
+          "std": 0.0,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a democratic political system. Reply with just a number (1-4)."
+    },
+    {
+      "question_id": "Q239",
+      "title": "Political System: Religious Law",
+      "category": "Political Culture & Political Regimes",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "num_languages": 6,
+      "total_responses": 60,
+      "overall_mean": 2.2166666666666663,
+      "language_stats": {
+        "Arabic": {
+          "count": 10,
+          "mean": 2.3,
+          "std": 0.48304589153964794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.324324324324325,
+            "avg_response_std": 0.3061821843950513,
+            "passes_threshold": true
+          }
+        },
+        "Chinese": {
+          "count": 10,
+          "mean": 2.6,
+          "std": 0.5163977794943223,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.27027027027027,
+            "avg_response_std": 0.27823028836755126,
+            "passes_threshold": true
+          }
+        },
+        "English": {
+          "count": 10,
+          "mean": 1.8,
+          "std": 0.42163702135578396,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 5.0,
+            "avg_response_std": 0.0,
+            "passes_threshold": true
+          }
+        },
+        "French": {
+          "count": 10,
+          "mean": 1.9,
+          "std": 0.31622776601683794,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.378378378378378,
+            "avg_response_std": 0.39952115547914996,
+            "passes_threshold": true
+          }
+        },
+        "Russian": {
+          "count": 10,
+          "mean": 2.6,
+          "std": 0.5163977794943223,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.405405405405405,
+            "avg_response_std": 0.46295265067808894,
+            "passes_threshold": true
+          }
+        },
+        "Spanish": {
+          "count": 10,
+          "mean": 2.1,
+          "std": 0.7378647873726218,
+          "quality_metrics": {
+            "questions_answered": 37,
+            "total_questions": 37,
+            "coverage_ratio": 1.0,
+            "avg_verification_score": 4.45945945945946,
+            "avg_response_std": 0.4746359876132142,
+            "passes_threshold": true
+          }
+        }
+      },
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a system governed by religious law in which there are no political parties or elections. Reply with just a number (1-4)."
+    }
+  ],
+  "quality_metrics": {
+    "thresholds": {
+      "min_llm_verification": 4.0,
+      "min_responses_per_question": 5,
+      "min_questions_per_language": 1.0,
+      "max_std_dev": 3.0
+    },
+    "language_quality": {
+      "English": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 5.0,
+        "avg_response_std": 0.0,
+        "passes_threshold": true
+      },
+      "French": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 4.378378378378378,
+        "avg_response_std": 0.39952115547914996,
+        "passes_threshold": true
+      },
+      "Chinese": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 4.27027027027027,
+        "avg_response_std": 0.27823028836755126,
+        "passes_threshold": true
+      },
+      "Spanish": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 4.45945945945946,
+        "avg_response_std": 0.4746359876132142,
+        "passes_threshold": true
+      },
+      "Russian": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 4.405405405405405,
+        "avg_response_std": 0.46295265067808894,
+        "passes_threshold": true
+      },
+      "Arabic": {
+        "questions_answered": 37,
+        "total_questions": 37,
+        "coverage_ratio": 1.0,
+        "avg_verification_score": 4.324324324324325,
+        "avg_response_std": 0.3061821843950513,
+        "passes_threshold": true
+      }
+    },
+    "timestamp": "20250412_140705",
+    "total_questions": 37,
+    "valid_languages": [
+      "English",
+      "French",
+      "Chinese",
+      "Spanish",
+      "Russian",
+      "Arabic"
+    ],
+    "source_file": "data_20250412_140705.csv"
+  }
+}

@@ -1,0 +1,520 @@
+{
+  "survey": {
+    "id": "wvs",
+    "name": "World Values Survey",
+    "description": "Adapted from the WVS Wave 7 questionnaire",
+    "version": "1.0",
+    "copyright": "Questions adapted from the World Values Survey (WVS) Wave 7 (2017-2022) Master Questionnaire, published by the World Values Survey Association (www.worldvaluessurvey.org).",
+    "source": "WVS Wave 7 (2017-2022)",
+    "metadata": {
+      "recommended_trials": 10,
+      "min_trials": 1,
+      "default_languages": [
+        "English",
+        "Armenian",
+        "Bengali",
+        "Portuguese",
+        "Mandarin Chinese",
+        "Greek",
+        "Turkish",
+        "Czech",
+        "Arabic",
+        "Amharic",
+        "Oromo",
+        "Tigris",
+        "German",
+        "Cantonese",
+        "Hindu",
+        "Indonesian",
+        "Persian",
+        "Japanese",
+        "Kazakh",
+        "Russian",
+        "Swahili",
+        "Kirghiz",
+        "Malay",
+        "Dhivehi",
+        "Mongolian",
+        "Burmese",
+        "Dutch",
+        "Hausa",
+        "Igbo",
+        "Yoruba",
+        "Urdu",
+        "Bikol",
+        "Cebuano",
+        "Filipino",
+        "Ikolo",
+        "Tausug",
+        "Waray",
+        "Hiligaynon",
+        "Romanian",
+        "Serbian",
+        "Slovak",
+        "Korean",
+        "Tajik",
+        "Thai",
+        "Ukrainian",
+        "Uzbek",
+        "Vietnamese",
+        "Shona",
+        "Ndebele"
+      ],
+      "translation_settings": {
+        "use_translation": true,
+        "min_verification_score": 4
+      }
+    }
+  },
+  "questions": [
+    {
+      "question_id": "Q106",
+      "question_title": "Income vs Incentives",
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Incomes should be made more equal OR There should be greater incentives for individual effort. Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Incomes should be made more equal",
+        "max": "Greater incentives for individual effort"
+      },
+      "category": "Economic Values"
+    },
+    {
+      "question_id": "Q107",
+      "question_title": "Ownership Preference",
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Private ownership of business and industry should be increased OR Government ownership of business and industry should be increased. Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Increase private ownership",
+        "max": "Increase government ownership"
+      },
+      "category": "Economic Values"
+    },
+    {
+      "question_id": "Q108",
+      "question_title": "Responsibility for Provision",
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Government should take more responsibility to ensure that everyone is provided for OR People should take more responsibility to provide for themselves. Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Government takes responsibility",
+        "max": "Individuals take responsibility"
+      },
+      "category": "Economic Values"
+    },
+    {
+      "question_id": "Q109",
+      "question_title": "Competition Effect",
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: Competition is good OR Competition is harmful. Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Competition is good",
+        "max": "Competition is harmful"
+      },
+      "category": "Economic Values"
+    },
+    {
+      "question_id": "Q110",
+      "question_title": "Hard Work Outcome",
+      "prompt_text": "I'd like you to tell me your views on various issues. How would you place your views on this scale? 1 means you agree completely with the statement on the left; 10 means you agree completely with the statement on the right; and if your views fall somewhere in between, you can choose any number in between: In the long run, hard work usually brings a better life OR Hard work doesn't generally bring success—it's more a matter of luck and connections. Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Hard work leads to a better life",
+        "max": "Success due to luck/connections"
+      },
+      "category": "Economic Values"
+    },
+    {
+      "question_id": "Q111",
+      "question_title": "Environmental vs Economic Priorities",
+      "prompt_text": "Here are two statements people sometimes make when discussing the environment and economic growth. Which of them comes closer to your own point of view? 1: Protecting the environment should be given priority, even if it causes slower economic growth and some loss of jobs. 2: Economic growth and creating jobs should be the top priority, even if the environment suffers to some extent. 3: Other answer (code if volunteered only). Reply with just a number.",
+      "scale_min": 1,
+      "scale_max": 3,
+      "scale_labels": {
+        "1": "Environment prioritized",
+        "2": "Economic growth prioritized",
+        "3": "Other"
+      },
+      "category": "Social Values & Attitudes"
+    },
+    {
+      "question_id": "Q177",
+      "question_title": "Justification: Claiming Benefits",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Claiming government benefits to which you are not entitled. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q178",
+      "question_title": "Justification: Avoiding Fare",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Avoiding a fare on public transport. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q179",
+      "question_title": "Justification: Stealing Property",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Stealing property. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q180",
+      "question_title": "Justification: Cheating on Taxes",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Cheating on taxes if you have a chance. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q181",
+      "question_title": "Justification: Accepting a Bribe",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Someone accepting a bribe in the course of their duties. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q182",
+      "question_title": "Justification: Homosexuality",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Homosexuality. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q183",
+      "question_title": "Justification: Prostitution",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Prostitution. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q184",
+      "question_title": "Justification: Abortion",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Abortion. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q185",
+      "question_title": "Justification: Divorce",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Divorce. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q186",
+      "question_title": "Justification: Sex Before Marriage",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Sex before marriage. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q187",
+      "question_title": "Justification: Suicide",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Suicide. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q188",
+      "question_title": "Justification: Euthanasia",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Euthanasia. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q189",
+      "question_title": "Justification: Man Beating Wife",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. For a man to beat his wife. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q190",
+      "question_title": "Justification: Parents Beating Children",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Parents beating children. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q191",
+      "question_title": "Justification: Violence Against Others",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Violence against other people. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q192",
+      "question_title": "Justification: Terrorism as a Means",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Terrorism as a political, ideological or religious mean. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q193",
+      "question_title": "Justification: Having Casual Sex",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Having casual sex. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q194",
+      "question_title": "Justification: Political Violence",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Political violence. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q195",
+      "question_title": "Justification: Death Penalty",
+      "prompt_text": "Please tell me for each of the following actions whether you think it can always be justified, never be justified, or something in between, using this card. Never justifiable - Always justifiable. Death penalty. Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Never justifiable",
+        "max": "Always justifiable"
+      },
+      "category": "Ethical Values and Norms"
+    },
+    {
+      "question_id": "Q235",
+      "question_title": "Political System: Strong Leader",
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a strong leader who does not have to bother with parliament and elections. Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "category": "Political Culture & Political Regimes"
+    },
+    {
+      "question_id": "Q236",
+      "question_title": "Political System: Expert Rule",
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having experts, not government, make decisions according to what they think is best for the country. Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "category": "Political Culture & Political Regimes"
+    },
+    {
+      "question_id": "Q237",
+      "question_title": "Political System: Army Rule",
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having the army rule. Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "category": "Political Culture & Political Regimes"
+    },
+    {
+      "question_id": "Q238",
+      "question_title": "Political System: Democratic System",
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a democratic political system. Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "category": "Political Culture & Political Regimes"
+    },
+    {
+      "question_id": "Q239",
+      "question_title": "Political System: Religious Law",
+      "prompt_text": "I'm going to describe various types of political systems and ask what you think about each as a way of governing this country. For each one, would you say it is a very good, fairly good, fairly bad or very bad way of governing this country? Having a system governed by religious law in which there are no political parties or elections. Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Very good",
+        "4": "Very bad"
+      },
+      "category": "Political Culture & Political Regimes"
+    },
+    {
+      "question_id": "Q164",
+      "question_title": "Importance of God",
+      "prompt_text": "How important is God in your life? Please use this scale to indicate. 10 means 'very important' and 1 means 'not at all important.' Reply with just a number (1-10).",
+      "scale_min": 1,
+      "scale_max": 10,
+      "scale_labels": {
+        "min": "Not at all important",
+        "max": "Very important"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q165",
+      "question_title": "Belief in God",
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in God? Reply with 1 if yes, 2 if no.",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q166",
+      "question_title": "Belief in Life After Death",
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in life after death? Reply with 1 if yes, 2 if no.",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q167",
+      "question_title": "Belief in Hell",
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Hell? Reply with 1 if yes, 2 if no.",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q168",
+      "question_title": "Belief in Heaven",
+      "prompt_text": "Which, if any, of the following do you believe in? Do you believe in Heaven? Reply with 1 if yes, 2 if no.",
+      "scale_min": 1,
+      "scale_max": 2,
+      "scale_labels": {
+        "1": "Yes",
+        "2": "No"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q169",
+      "question_title": "Science vs Religion Conflict",
+      "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: Whenever science and religion conflict, religion is always right. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Strongly agree",
+        "2": "Agree",
+        "3": "Disagree",
+        "4": "Strongly disagree"
+      },
+      "category": "Religious Values"
+    },
+    {
+      "question_id": "Q170",
+      "question_title": "Exclusivity of Religion",
+      "prompt_text": "Please tell us if you strongly agree, agree, disagree, or strongly disagree with the following statements: The only acceptable religion is my religion. Do you strongly agree (1), agree (2), disagree (3), or strongly disagree (4)? Reply with just a number (1-4).",
+      "scale_min": 1,
+      "scale_max": 4,
+      "scale_labels": {
+        "1": "Strongly agree",
+        "2": "Agree",
+        "3": "Disagree",
+        "4": "Strongly disagree"
+      },
+      "category": "Religious Values"
+    }
+  ]
+}

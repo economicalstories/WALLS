@@ -2,6 +2,8 @@
 
 A project investigating how large language models respond to standardized survey-style prompts in different languages.
 
+**Live Dashboard:** [https://walls-dashboard.vercel.app/](https://walls-dashboard.vercel.app/)
+
 ## Project Overview
 
 This project aims to:
